@@ -1,0 +1,370 @@
+---
+title: "Description"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Description}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Load and install SwineNet package
+
+```{r setup}
+list.of.packages <- c("SwineNet")
+new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+lapply(list.of.packages, require, character.only = TRUE)
+```
+
+Load example datasets
+
+```{r}
+data(listPremises)
+data(listMovements)
+```
+Define a list of attributes for premises to keep in the network
+
+```{r}
+premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat", "mainland")
+```
+Add year, month and semester to the movement data.frame using timewindows function.
+```{r}
+listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
+```
+
+# Build network
+
+Produce igraph graph using the movements data.frame  (both first columns should respectivelly be named "from" and "to" and should be consistent with the premises ids) and the premises data.frame (site id has to be the first column). Arguments 'path.save' and 'prefixe' are requested only if save.network is TRUE. By default the duplicated edges will be kept and loops will be removed, use arguments: remove.duplicated.edges and remove.loop.edges to modify.
+
+```{r }
+G <- generate.network(movements = listMovements,
+                      premises = listPremises[,premises.attributs],
+                      save.network = FALSE,
+                      remove.duplicated.edges = F,
+                      remove.loop.edges = T)
+```
+
+## Limit analysis to a subset of premises
+
+To limit the analysis to a subset of premises of edges. Update the premises and/or movements data.frames.
+For example: select premises on the mainland
+```{r }
+listPremises <- listPremises[which(listPremises$mainland==TRUE),]
+premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat")
+```
+
+### Subset of farms: select active premises of the national industry in the mainland
+
+```{r }
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+
+G <- generate.network(movements = related.movements,
+                      premises = selectedFARMS[,premises.attributs],
+                      save.network = FALSE)
+```
+
+Repeat the operation excluding slaughterhouses and boar stations
+
+```{r }
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                           listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = related.movements,
+                      premises = selectedFARMS,
+                      save.network = FALSE)
+```
+
+## Generate subnetworks based on edge attribute (such as various time windows or type of transport)
+
+Use splitByEdges term of the 'generate.network' function. 'splitByEdges' attribute should refer to a qualitative variable in movements data.frame.
+Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.
+
+```{r }
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = related.movements,
+                      premises = selectedFARMS,
+                      splitByEdges = c("MType", "year"),
+                      save.network = FALSE)
+
+G %>% names
+```
+## Generate subnetworks based on vertex attribute (type of farms)
+
+Use splitByVertex term of the 'generate.network' function. 'splitByVertex' attribute should refer to a qualitative variable in premises data.frame.
+Note that, the general network with all Premises can be include by adding a NA object in the splitByVertex vector.
+Note that, splitByEdges and splitByVertex can be used jointly and networks will be produced for all combinations of movement subsets and premise subsets.
+
+```{r }
+
+G <- generate.network(movements = related.movements,
+                      premises = selectedFARMS,
+                      splitByVertex = "type",
+                      save.network = FALSE)
+
+G %>% names
+
+G <- generate.network(movements = related.movements,
+                      premises = selectedFARMS,
+                      splitByEdges = c(NA, "semester"),
+                      splitByVertex = "freerange",
+                      save.network = FALSE)
+
+G %>% names
+```
+
+
+# Network representations
+Networks can be represented based on its attributes with swineNetwork.representation function.
+
+```{r eval=FALSE}
+igraph::get.edge.attribute(G[[1]]) %>% names
+igraph::get.vertex.attribute(G[[1]]) %>% names
+
+p <- swineNetwork.representation(networktoplot = G[[1]],
+                        title = "network representation",
+                        movements.type.lab = "MType",
+                        premises.type.lab = "type")
+
+p
+```
+
+If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map.network function.
+Use the map.network function to map the network.
+```{r}
+igraph::get.vertex.attribute(G[[1]]) %>% names
+
+map.network(
+  network = G[[1]],
+  country = c("FR"),
+  premisescolours = "type",
+  title = "network map",
+  topfeature = "point"
+)
+
+```
+
+# Network centralities
+
+A distance matrix of pairwise of premises can be generated using the GeoDistanceInMetresMatrix function.
+
+```{r}
+distMatrix <- GeoDistanceInMetresMatrix(selectedFARMS[,c("siteID","lon","lat")])
+# or in km
+distMatrix <- round(GeoDistanceInMetresMatrix(selectedFARMS[,c("siteID","lon","lat")]) / 1000,1)
+```
+
+network.centralities function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix.
+Use ```do.call(rbind, lapply(G, network.centralities))``` to generate centralities data.frame of centralities for multiple networks.
+
+```{r}
+#  without the distance
+network.centralities(G[[1]])
+
+#  or with the distance
+network.centralities(network = G[[1]], include.distance = TRUE, distance.matrix = distMatrix)
+```
+```
+
+# Exponential random graph model
+
+## Design the experiment
+ergm package works with network, transformation of igraph graph into network can be made using intergraph package.
+
+### Which covariables to include in the bidirectional stepwise procedure?
+Define a list of covariates to include in the bidirectional stepwise procedure.
+The list can contain terms related to nodal and edges attributes as well as structural terms.
+Edges attributes can only be included with a matrix involving a value for each pair of premises (eg. distance matrix).
+
+Use expertise, summary function and mixingmatrix function to define the covariables. Summary and mixingmatrix functions work with network, not igraph.
+
+Definition for implemented terms can be found within the ergm package help (?ergm.terms).
+
+```{r}
+g <- intergraph::asNetwork(G[[1]])
+
+########### 
+########### Nodal and edges attributes
+########### 
+library(network)
+
+network::list.vertex.attributes(g)
+
+farmGroup.levels <- network::get.vertex.attribute(g, "farmGroup") %>% unique %>% length
+type.levels <- network::get.vertex.attribute(g, "type") %>% unique %>% length
+BRS.levels <- network::get.vertex.attribute(g, "BRS") %>% unique %>% length
+freerange.levels <- network::get.vertex.attribute(g, "freerange") %>% unique %>% length
+
+elements <- c(
+  "edgecov(distMatrix)",
+  paste("nodefactor(\"farmGroup\", levels=c(",seq(farmGroup.levels),"))"),
+  paste("nodeifactor(\"farmGroup\", levels=c(",seq(farmGroup.levels),"))"),
+  paste("nodeofactor(\"farmGroup\", levels=c(",seq(farmGroup.levels),"))"),
+  paste("nodefactor(\"type\", levels=c(",seq(type.levels),"))"),
+  paste("nodeifactor(\"type\", levels=c(",seq(type.levels),"))"),
+  paste("nodeofactor(\"type\", levels=c(",seq(type.levels),"))"),
+  paste("nodefactor(\"BRS\", levels=c(",seq(BRS.levels),"))"),
+  paste("nodeifactor(\"BRS\", levels=c(",seq(BRS.levels),"))"),
+  paste("nodeofactor(\"BRS\", levels=c(",seq(BRS.levels),"))"),
+  paste("nodefactor(\"freerange\", levels=c(",seq(freerange.levels),"))"),
+  paste("nodeifactor(\"freerange\", levels=c(",seq(freerange.levels),"))"),
+  paste("nodeofactor(\"freerange\", levels=c(",seq(freerange.levels),"))"),
+  # interactions
+  paste("nodematch(\"farmGroup\", diff=F)"),
+  paste("nodematch(\"BRS\", diff=F)"),
+  paste("nodematch(\"farmGroup\", diff=T, levels=c(",seq(farmGroup.levels),"))"),
+  paste("nodemix(\"freerange\", levels2=c(",seq(freerange.levels^2),"))"),
+  paste("nodemix(\"BRS\", levels2=c(",seq(BRS.levels)^2,"))"),
+  paste("nodemix(\"type\", levels2=c(",seq(type.levels^2),"))")#,
+  # paste("asymmetric(\"type\")"),
+  # paste("asymmetric(\"type\", diff = T, levels=c(",seq(type.levels),"))")
+  ) %>% as.list
+
+elements %>% unlist %>% length
+
+########### 
+########### Structural characteristics
+########### 
+
+library(sna)
+ostar.levels <- degree(g,gmode = "out") %>% unique
+istar.levels <- degree(g,gmode = "in") %>% unique
+triadcensus.levels <- c(0:15)[which(summary(g ~ triadcensus(0:15)) != 0)]
+ITP.levels <- which(summary(g~ddsp(1:50, "ITP")) !=0)
+OTP.levels <- which(summary(g~ddsp(1:50, "OTP")) !=0)
+OSP.levels <- which(summary(g~ddsp(1:50, "OSP")) !=0)
+
+structural.elements <- as.list(c(
+  "edges","twopath", "idegree1.5", "odegree1.5", "transitive",
+  paste("ostar(",seq(ostar.levels),")"),
+  paste("istar(",seq(istar.levels),")"),
+  paste("triadcensus(",triadcensus.levels,")"),
+  paste("ddsp(",seq(OSP.levels),", type =\"OSP\")"),
+  paste("ddsp(",seq(ITP.levels),", type =\"ITP\")"),
+  paste("ddsp(",seq(OTP.levels),", type =\"OTP\")")
+))
+
+structural.elements %>% unlist %>% length
+```
+
+## Launch the stepwise procedure
+Define the baseline formula and launch the stepwise procedure either "forward", "backward" or "bidirectional".
+If the function crashes, reload the last stepwise.summary output saved and relaunch the procedure the covariable that produced the crash will be skip for this step.
+As the function call a future.apply function allowing for parallelisation, use closeAllConnections() after a crash, make sure that all connections have been closed before relaunch.
+
+```{r eval=FALSE}
+########### 
+########### Run the stepwise selection process
+########### 
+
+base.formula <- "g ~ edges"
+
+########### 
+########### Forward stepwise procedure
+########### 
+
+stepwise.selection.forERGM(base.formula, # string
+                           nbworkers =  10, # integer
+                           elements = append(elements,structural.elements), # list
+                           network.name = "mynetwork", # string
+                           results.path = getwd(), # string
+                           maxduration = 60*60*1, # integer in seconds
+                           g = g,
+                           mode = "forward", # string "forward" or "backward"  or "bidirectional"
+                           verbose =T
+)
+
+
+
+########### 
+########### Backward stepwise procedure
+########### 
+
+
+load(file = getwd() %>% 
+  list.files(., full.names = TRUE) %>% 
+  .[grep(paste0("stepwise.summary_mynetwork"),.)]%>% 
+  extract(which.max(file.mtime(.))))
+
+base.formula <- stepwise.summary[[stepwise.summary %>% length]]$formula %>%  substr(., gregexpr("\\g ~", .)[[1]][1] , nchar(.)-1)
+baseline.aic <- stepwise.summary %>% .[[length(.)]] %>% .$min.aic
+
+stepwise.selection.forERGM(base.formula,
+                           nbworkers = 10, #integer
+                           network.name = "mynetwork", # string
+                           results.path = getwd(),
+                           maxduration = 60*60*2, # integer in seconds
+                           g,
+                           mode = "backward", # string "forward" or "backward"  or "bidirectional"
+                           stepwise.summary = stepwise.summary,
+                           baseline.aic = baseline.aic, 
+                           verbose = T
+)
+
+######## 
+######## Bidirectional stepwise procedure
+######## 
+
+stepwise.selection.forERGM(base.formula,
+                           nbworkers =  10, # integer
+                           elements = elements, # list
+                           network.name = "mynetwork", # string
+                           results.path = results.path,
+                           maxduration = 60*60*1, # integer in seconds
+                           g = g,
+                           mode = "bidirectional", # string "forward", "backward" or "bidirectional"
+                           verbose =T
+)
+
+```
+
+## Analyse results
+
+
+```{r eval = FALSE}
+# read the most recent output
+load(file = list.files(., full.names = TRUE) %>% 
+  .[grep(paste0("stepwise.summary_mynetwork"),.)]%>% 
+  extract(which.max(file.mtime(.))))
+
+selected.terms <- analyseStepwise(stepwise.summary)
+```
+
+# Analyse the selected model
+
+Use the selectedERGM function to analyse the most parcimonious combinations of covariables.
+The function will save output files in the specified path.
+Runing time can be long, be patient.
+
+```{r eval = FALSE}
+selectedERGM(stepwise.summary,
+             g,
+             outputpath='',
+             distMatrix = NA,
+             nsimGof = 2000,
+             nSimNet = 5,
+             maxtimeERGM = 60*60*2,
+             country.plot = c("FR"),
+             nrepAIC = 3,
+             verbose = T)
+```
+
+

@@ -1,0 +1,366 @@
+---
+title: "Use network analysis tools to understand animal movements patterns"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Description}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The goal of this package is to provide efficient tools and framework to analyse animal movements with an epidemiological point of view.
+
+This package is more an integration package easing the use of multiple packages such as SNA, igraph, SimInf and ggplot for the visualization for specific purposes than a package providing new algorithms.
+
+To use this package the minimal required dataset are a set of sites and a set of movements between them. More information you have on the sites and movements, more information you will be able to extract from the analysis.
+A step-by-step framework is provided using hypothetical movements within the French swine industry. All details about sites and movements were simulated and cannot be taken as reference for french swine industry.
+
+```{r setup}
+devtools::load_all()
+library(SwineNet)
+```
+
+*** Load datasets
+
+```{r}
+data(sites)
+head(sites)
+```
+
+The sites data must be organize as a data.frame or a data.table including unique identifier for each location.
+In the example data, 'sites' is a data.table censing farms and slaughterhouses, each one defined by a unique identifier (siteID) and a set of characteristics: their company, their type, the presence of an outdoor housing system, their batch rearing system (BRS), their GPS coordinates (longitude: lon, and latitude: lat) and their size (number of sows: nbRP, number of pigs: nbPW, number of barrows: nbFat).
+
+
+```{r}
+data(movements)
+head(movements)
+```
+
+The movements data must also be organize as a data.frame or a data.table including at least origin and destination.
+In the example data, the 'movements' data is a data.table listing simulated movements. Each movement is characterized by its origin and destination as well as its date of occurrence and the type of transported animals (MType: sows (RP), piglets (PG), growing pigs (GP) and barrows (BW)).
+
+# Build general network
+
+Produce igraph graph using the movements and sites dataset to define vertex attributes (site id has to be the first column). Arguments 'past.save' and 'prefixe' are requested only if save.network is TRUE.
+
+--- Note for myself: update function to use data.table as well.
+
+```{r}
+sites_attributes <- c("siteID", "company",  "type", "outdoor", "BRS", "lon", "lat")
+
+G <- generate.network(movements = movements[,c("from","to")] %>% as.data.frame,
+                 sites = sites[,..sites_attributes] %>% as.data.frame,
+                 save.network = FALSE)
+```
+
+ Limit further analysis to mainland?
+
+```{r eval = FALSE}
+listPremises <- listPremises[which(listPremises$mainland==TRUE),]
+premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat")
+```
+
+### Subset of farms: select active premises of the national industry in the mainland
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+
+G <- generate.network(movements = related.movements,
+                 premises = selectedFARMS,
+                 save.network = FALSE, path.save ="networks", prefixe = "full.industry.net")
+```
+
+Repeat the operation excluding slaughterhouses and boar stations
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = related.movements,
+                 premises = selectedFARMS,
+                 save.network = FALSE, path.save ="networks", prefixe = "epidPurposes.industry.net")
+```
+
+## Time divisions
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = related.movements,
+                 premises = selectedFARMS,
+                 #periods = c("year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "epidPurposes.industry.net")
+```
+
+# Build subnetworks network 
+
+## Subnetworks based on production
+
+### Breeding
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("MU", "NU","BS")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = related.movements,
+                 premises = selectedFARMS,
+                 #periods = c(FALSE, "year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "breeding.industry.net")
+```
+
+###  Production
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI")),
+                              premises.attributs]
+
+related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
+                                               listMovements$to %in% selectedFARMS$siteID ),]
+
+
+G <- generate.network(movements = related.movements,
+                 premises = selectedFARMS,
+                 #periods = c(FALSE, "year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "production.industry.net")
+```
+
+
+## Subnetworks based on transported animals
+
+###  Piglets
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "MU", "NU")),
+             premises.attributs]
+
+movements <- listMovements[which(listMovements$MType == "piglets" &
+                                       listMovements$from %in% selectedFARMS$siteID &
+                                       listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = movements,
+                 premises = selectedFARMS,
+                 #periods = c(FALSE, "year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "piglets.industry.net")
+```
+
+###  Growing pigs
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+                              premises.attributs]
+
+movements <- listMovements[which(listMovements$MType == "growingPigs" &
+                                       listMovements$from %in% selectedFARMS$siteID &
+                                       listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = movements,
+                 premises = selectedFARMS,
+                 #periods = c(FALSE, "year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "growing.pigs.industry.net")
+```
+
+###  Reproductive sows
+
+```{r eval = FALSE}
+selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "MU", "NU")),
+                              premises.attributs]
+
+movements <- listMovements[which(listMovements$MType == "rpSows" &
+                                       listMovements$from %in% selectedFARMS$siteID &
+                                       listMovements$to %in% selectedFARMS$siteID ),]
+
+G <- generate.network(movements = movements,
+                 premises = selectedFARMS,
+                 #periods = c(FALSE, "year", "semester", "month"),
+                 save.network = FALSE, path.save ="networks",
+                 prefixe = "reproductive.sows.industry.net")
+
+```
+
+## Map network
+Use the map.network function to map the network.
+
+```{r, eval=F}
+map.network(
+  network = G[[1]],
+  country = c("FR"),
+  title = "network map",
+  topfeature = "point"
+)
+```
+
+## Calculate centralities
+
+Generate the distance matrix of pairwise of premises. You can use The Geographic Distance Matrix Generator  [-@Ersts2021].
+Sometimes the distance generator introduce '?' instead of 0.
+
+---
+references:
+- id: Ersts2021
+  title: Geographic Distance Matrix Generator(version 1.2.3).
+  author:
+  - family: Ersts
+    given: P.J.
+  container-title: American Museum of Natural History, Center for Biodiversity and Conservation.
+  URL: 'http://biodiversityinformatics.amnh.org/open_source/gdmg'
+  accessed:
+    year: 2021
+    month: 2
+---
+
+
+
+
+```{r eval = FALSE}
+# Save coordinates in the right format to feed The Geographic Distance Matrix Generator
+write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t", row.names = F, quote = FALSE)
+
+# final required format
+data(distMatrix)
+```
+
+Use the network.centralities function to calculate the basic centralities of a network.
+Use ```do.call(rbind, lapply(G, network.centralities))``` to generate centralities data.frame of centralities for multiple networks.
+
+```{r eval = FALSE}
+network.centralities(G[[1]])
+```
+
+# Exponential random graph model
+
+## Run ERGM
+Design the experiment: which network to use: how many covariates to test?
+
+```{r eval = FALSE}
+exp.design <- expand.grid(network = names(G[2:3]), nCov = 2:3)
+```
+Select covariates (structural and/or nodal and/or edges attributes) and generate combinations. Use expertise, summary function and mixingmatrix function to define the covariables. Summary and mixingmatrix functions work with network, not igraph.
+```{r eval = FALSE}
+summary(intergraph::asNetwork(G[[1]]) ~ edges + idegree1.5 + odegree1.5 + twopath)
+
+coVar <- c("edges", "idegree1.5","odegree1.5","twopath","transitive",
+           "nodematch(\"farmGroup\", diff = TRUE,levels = which(diag(mixingmatrix(G, \"farmGroup\")) > 2))",
+           "edgecov(distMatrix)")
+
+comb.Covar <- generate.coVar.comb(exp.design, coVar, splitin=FALSE)
+# how many combination per batch/experiment?
+sapply(comb.Covar, length)
+
+```
+Run the ergms and save results in a dedicated folder.
+
+```{r eval=FALSE}
+# Set prefixe for output file
+prefixe <- "output"
+
+
+required.cores <- nrow(exp.design)
+nc = ifelse((detectCores()-1) < required.cores, detectCores()-1, required.cores)
+
+if(.Platform$OS.type == "unix") {
+  registerDoMC(nc) } else {
+    cl = makeCluster(nc)
+    registerDoParallel(cl)
+  }
+
+foreach(i = seq(nrow(exp.design)),
+        .packages = c("ergm", "network","intergraph")) %dopar% {
+          
+          exp.design[,1] <- as.character(exp.design[,1])
+          network <- exp.design[i,1]
+          nCov <- as.numeric(exp.design[i,2])
+          combtorun <- comb.Covar[[paste(exp.design[i,], collapse = ".")]]
+          
+          filename = paste0(prefixe,"_",network,"_",nCov,".Rda")
+          
+          if(splitin!=FALSE){
+            batch <- as.character(subNet.nCov[i,3])
+            filename = paste0(prefixe,"_",network,"_",nCov,"_",batch,".Rda")
+            }
+            
+          launch.ergm(G = intergraph::asNetwork(G[[network]]),
+                      matDist = distMatrix,
+                      fileloc = "output/", 
+                      filename = filename,
+                      combtotest=combtorun
+                      )
+          
+        } # end foreach
+
+if(.Platform$OS.type == "windows")
+stopCluster(cl)
+```
+
+Merge results using function merge.ergm.output.
+The duration.h is the maximal permitted duration in hours of a run, beyond this duration, the combination is considered as 'crashed', below this duration, the combination is considered as aborted and from the results.
+
+```{r eval=FALSE}
+merge.ergm.output(list.networks = unique(exp.design$network),
+                      list.nCov = unique(exp.design$nCov),
+                      fileloc = "output/",
+                      prefixe = "output",
+                      duration.h = 24)
+```
+
+If it has crashed, after merging, use the function generate.coVar.comb with screen.results = TRUE to screen the results and subset the combination that still needs to be run.
+
+```{r eval=FALSE}
+comb.Covar <- generate.coVar.comb(exp.design, coVar, splitin=FALSE,
+                                  screen.results = TRUE, result.file ="output/", prefixe="output")
+# how many combination per batch/experiment?
+sapply(comb.Covar, length)
+```
+
+Relaunch the ergm for missing combinations and merge the outputs.
+
+## Analyse results
+
+The compare.ergm.output function compares for each network, all simulations merged by the merge.ergm.output.
+It returns different lists of combinations.
+
+```{r eval = FALSE}
+list.output <- compare.ergm.output(list.networks = unique(exp.design$network),
+                   list.nCov = unique(exp.design$nCov),
+                   fileloc = "output/",
+                   prefixe = "output",
+                   marginAIC = 1000,
+                   display.info = TRUE)
+```
+
+You can use the output lists to relaunch some models or to move forward with analyzing a specific model.
+
+# Analyse MCMC
+
+Use the analyse.ERGM function to analyse the best combination.
+The function will save output files in the specified path.
+
+
+```{r eval = FALSE}
+analyse.ERGM(G, list.output, fileloc = "output/", prefixe = 'final')
+```
+
+

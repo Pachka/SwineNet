@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Use network analysis tools to understand animal movements patterns</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Use network analysis tools to understand animal movements patterns</h1>
+
+
+
+<p>The goal of this package is to provide efficient tools and framework to analyse animal movements with an epidemiological point of view.</p>
+<p>This package is more an integration package easing the use of multiple packages such as SNA, igraph, SimInf and ggplot for the visualization for specific purposes than a package providing new algorithms.</p>
+<p>To use this package the minimal required dataset are a set of sites and a set of movements between them. More information you have on the sites and movements, more information you will be able to extract from the analysis. A step-by-step framework is provided using hypothetical movements within the French swine industry. All details about sites and movements were simulated and cannot be taken as reference for french swine industry.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">load_all</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; i Loading SwineNet</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : magrittr</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : ggplot2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : scales</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : tmaptools</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : openxlsx</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : doParallel</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : foreach</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : iterators</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : parallel</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : future.apply</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Le chargement a nécessité le package : future</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Registered S3 method overwritten by &#39;tergm&#39;:</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   method                   from</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   simulate_formula.network ergm</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(SwineNet)</span></code></pre></div>
+<p>*** Load datasets</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(sites)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sites)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    siteID  company type outdoor BRS        lon      lat nbRP nbPW nbFat</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:      1 company1   PW       1   5  4.4605275 48.00574    0  864     0</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:      2 company6   FI       0   4 -1.3200274 48.04674    0    0  1080</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:      3 company5  FPW       0   5  5.1926606 47.12991   30  720     0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:      4 company6   NU       0   7  4.7006508 46.34966   48  864  1440</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:      5 company2  PWF       1   5  2.4981759 44.20465    0  576   576</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6:      6 company1   FI       0   7 -0.9028604 47.79372    0    0  2160</span></span></code></pre></div>
+<p>The sites data must be organize as a data.frame or a data.table including unique identifier for each location. In the example data, ‘sites’ is a data.table censing farms and slaughterhouses, each one defined by a unique identifier (siteID) and a set of characteristics: their company, their type, the presence of an outdoor housing system, their batch rearing system (BRS), their GPS coordinates (longitude: lon, and latitude: lat) and their size (number of sows: nbRP, number of pigs: nbPW, number of barrows: nbFat).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(movements)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(movements)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    from  to       date MType</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1:   88 136 2013-01-01    BW</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2:   88 136 2013-01-01    BW</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3:   88 136 2013-01-01    BW</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4:   88 136 2013-01-01    BW</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5:   88 136 2013-01-01    BW</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6:   33 135 2013-01-01    BW</span></span></code></pre></div>
+<p>The movements data must also be organize as a data.frame or a data.table including at least origin and destination. In the example data, the ‘movements’ data is a data.table listing simulated movements. Each movement is characterized by its origin and destination as well as its date of occurrence and the type of transported animals (MType: sows (RP), piglets (PG), growing pigs (GP) and barrows (BW)).</p>
+<div id="build-general-network" class="section level1">
+<h1>Build general network</h1>
+<p>Produce igraph graph using the movements and sites dataset to define vertex attributes (site id has to be the first column). Arguments ‘past.save’ and ‘prefixe’ are requested only if save.network is TRUE.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements[,<span class="fu">c</span>(<span class="st">&quot;from&quot;</span>,<span class="st">&quot;to&quot;</span>)],</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> sites,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>Limit further analysis to mainland?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>listPremises <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>mainland<span class="sc">==</span><span class="cn">TRUE</span>),]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>premises.attributs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;siteID&quot;</span>, <span class="st">&quot;farmGroup&quot;</span>,  <span class="st">&quot;type&quot;</span>, <span class="st">&quot;freerange&quot;</span>, <span class="st">&quot;BRS&quot;</span>, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>)</span></code></pre></div>
+<div id="subset-of-farms-select-active-premises-of-the-national-industry-in-the-mainland" class="section level3">
+<h3>Subset of farms: select active premises of the national industry in the mainland</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>,<span class="st">&quot;BS&quot;</span>,<span class="st">&quot;SL&quot;</span>)),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>, <span class="at">prefixe =</span> <span class="st">&quot;full.industry.net&quot;</span>)</span></code></pre></div>
+<p>Repeat the operation excluding slaughterhouses and boar stations</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>, <span class="at">prefixe =</span> <span class="st">&quot;epidPurposes.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+<div id="time-divisions" class="section level2">
+<h2>Time divisions</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(&quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;epidPurposes.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="build-subnetworks-network" class="section level1">
+<h1>Build subnetworks network</h1>
+<div id="subnetworks-based-on-production" class="section level2">
+<h2>Subnetworks based on production</h2>
+<div id="breeding" class="section level3">
+<h3>Breeding</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>,<span class="st">&quot;BS&quot;</span>)),</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;breeding.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+<div id="production" class="section level3">
+<h3>Production</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>)),</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;production.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="subnetworks-based-on-transported-animals" class="section level2">
+<h2>Subnetworks based on transported animals</h2>
+<div id="piglets" class="section level3">
+<h3>Piglets</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>             premises.attributs]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>MType <span class="sc">==</span> <span class="st">&quot;piglets&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;piglets.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+<div id="growing-pigs" class="section level3">
+<h3>Growing pigs</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>MType <span class="sc">==</span> <span class="st">&quot;growingPigs&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;growing.pigs.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+<div id="reproductive-sows" class="section level3">
+<h3>Reproductive sows</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>selectedFARMS <span class="ot">&lt;-</span> listPremises[<span class="fu">which</span>(listPremises<span class="sc">$</span>type <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                              premises.attributs]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>MType <span class="sc">==</span> <span class="st">&quot;rpSows&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">prefixe =</span> <span class="st">&quot;reproductive.sows.industry.net&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="map-network" class="section level2">
+<h2>Map network</h2>
+<p>Use the map.network function to map the network.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map.network</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">network =</span> G[[<span class="dv">1</span>]],</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;FR&quot;</span>),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;network map&quot;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">topfeature =</span> <span class="st">&quot;point&quot;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="calculate-centralities" class="section level2">
+<h2>Calculate centralities</h2>
+<p>Generate the distance matrix of pairwise of premises. You can use The Geographic Distance Matrix Generator <span class="citation">(n.d.)</span>. Sometimes the distance generator introduce ‘?’ instead of 0.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save coordinates in the right format to feed The Geographic Distance Matrix Generator</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(selectedFARMS[,<span class="fu">c</span>(<span class="st">&quot;siteID&quot;</span>,<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)], <span class="at">file =</span> <span class="st">&quot;GPS.txt&quot;</span>, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">row.names =</span> F, <span class="at">quote =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># final required format</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(distMatrix)</span></code></pre></div>
+<p>Use the network.centralities function to calculate the basic centralities of a network. Use <code>do.call(rbind, lapply(G, network.centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">network.centralities</span>(G[[<span class="dv">1</span>]])</span></code></pre></div>
+</div>
+</div>
+<div id="exponential-random-graph-model" class="section level1">
+<h1>Exponential random graph model</h1>
+<div id="run-ergm" class="section level2">
+<h2>Run ERGM</h2>
+<p>Design the experiment: which network to use: how many covariates to test?</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>exp.design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">network =</span> <span class="fu">names</span>(G[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]), <span class="at">nCov =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<p>Select covariates (structural and/or nodal and/or edges attributes) and generate combinations. Use expertise, summary function and mixingmatrix function to define the covariables. Summary and mixingmatrix functions work with network, not igraph.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(intergraph<span class="sc">::</span><span class="fu">asNetwork</span>(G[[<span class="dv">1</span>]]) <span class="sc">~</span> edges <span class="sc">+</span> idegree1<span class="fl">.5</span> <span class="sc">+</span> odegree1<span class="fl">.5</span> <span class="sc">+</span> twopath)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>coVar <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;edges&quot;</span>, <span class="st">&quot;idegree1.5&quot;</span>,<span class="st">&quot;odegree1.5&quot;</span>,<span class="st">&quot;twopath&quot;</span>,<span class="st">&quot;transitive&quot;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;nodematch(</span><span class="sc">\&quot;</span><span class="st">farmGroup</span><span class="sc">\&quot;</span><span class="st">, diff = TRUE,levels = which(diag(mixingmatrix(G, </span><span class="sc">\&quot;</span><span class="st">farmGroup</span><span class="sc">\&quot;</span><span class="st">)) &gt; 2))&quot;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">&quot;edgecov(distMatrix)&quot;</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>comb.Covar <span class="ot">&lt;-</span> <span class="fu">generate.coVar.comb</span>(exp.design, coVar, <span class="at">splitin=</span><span class="cn">FALSE</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># how many combination per batch/experiment?</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(comb.Covar, length)</span></code></pre></div>
+<p>Run the ergms and save results in a dedicated folder.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set prefixe for output file</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>prefixe <span class="ot">&lt;-</span> <span class="st">&quot;output&quot;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>required.cores <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp.design)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">=</span> <span class="fu">ifelse</span>((<span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>) <span class="sc">&lt;</span> required.cores, <span class="fu">detectCores</span>()<span class="sc">-</span><span class="dv">1</span>, required.cores)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(.Platform<span class="sc">$</span>OS.type <span class="sc">==</span> <span class="st">&quot;unix&quot;</span>) {</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">registerDoMC</span>(nc) } <span class="cf">else</span> {</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    cl <span class="ot">=</span> <span class="fu">makeCluster</span>(nc)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">registerDoParallel</span>(cl)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">foreach</span>(<span class="at">i =</span> <span class="fu">seq</span>(<span class="fu">nrow</span>(exp.design)),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">.packages =</span> <span class="fu">c</span>(<span class="st">&quot;ergm&quot;</span>, <span class="st">&quot;network&quot;</span>,<span class="st">&quot;intergraph&quot;</span>)) <span class="sc">%dopar%</span> {</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>          exp.design[,<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">as.character</span>(exp.design[,<span class="dv">1</span>])</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>          network <span class="ot">&lt;-</span> exp.design[i,<span class="dv">1</span>]</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>          nCov <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(exp.design[i,<span class="dv">2</span>])</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>          combtorun <span class="ot">&lt;-</span> comb.Covar[[<span class="fu">paste</span>(exp.design[i,], <span class="at">collapse =</span> <span class="st">&quot;.&quot;</span>)]]</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>          filename <span class="ot">=</span> <span class="fu">paste0</span>(prefixe,<span class="st">&quot;_&quot;</span>,network,<span class="st">&quot;_&quot;</span>,nCov,<span class="st">&quot;.Rda&quot;</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span>(splitin<span class="sc">!=</span><span class="cn">FALSE</span>){</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>            batch <span class="ot">&lt;-</span> <span class="fu">as.character</span>(subNet.nCov[i,<span class="dv">3</span>])</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>            filename <span class="ot">=</span> <span class="fu">paste0</span>(prefixe,<span class="st">&quot;_&quot;</span>,network,<span class="st">&quot;_&quot;</span>,nCov,<span class="st">&quot;_&quot;</span>,batch,<span class="st">&quot;.Rda&quot;</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>          <span class="fu">launch.ergm</span>(<span class="at">G =</span> intergraph<span class="sc">::</span><span class="fu">asNetwork</span>(G[[network]]),</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>                      <span class="at">matDist =</span> distMatrix,</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>                      <span class="at">fileloc =</span> <span class="st">&quot;output/&quot;</span>, </span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>                      <span class="at">filename =</span> filename,</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>                      <span class="at">combtotest=</span>combtorun</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>                      )</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        } <span class="co"># end foreach</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(.Platform<span class="sc">$</span>OS.type <span class="sc">==</span> <span class="st">&quot;windows&quot;</span>)</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl)</span></code></pre></div>
+<p>Merge results using function merge.ergm.output. The duration.h is the maximal permitted duration in hours of a run, beyond this duration, the combination is considered as ‘crashed,’ below this duration, the combination is considered as aborted and from the results.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">merge.ergm.output</span>(<span class="at">list.networks =</span> <span class="fu">unique</span>(exp.design<span class="sc">$</span>network),</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">list.nCov =</span> <span class="fu">unique</span>(exp.design<span class="sc">$</span>nCov),</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">fileloc =</span> <span class="st">&quot;output/&quot;</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">prefixe =</span> <span class="st">&quot;output&quot;</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">duration.h =</span> <span class="dv">24</span>)</span></code></pre></div>
+<p>If it has crashed, after merging, use the function generate.coVar.comb with screen.results = TRUE to screen the results and subset the combination that still needs to be run.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>comb.Covar <span class="ot">&lt;-</span> <span class="fu">generate.coVar.comb</span>(exp.design, coVar, <span class="at">splitin=</span><span class="cn">FALSE</span>,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">screen.results =</span> <span class="cn">TRUE</span>, <span class="at">result.file =</span><span class="st">&quot;output/&quot;</span>, <span class="at">prefixe=</span><span class="st">&quot;output&quot;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># how many combination per batch/experiment?</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(comb.Covar, length)</span></code></pre></div>
+<p>Relaunch the ergm for missing combinations and merge the outputs.</p>
+</div>
+<div id="analyse-results" class="section level2">
+<h2>Analyse results</h2>
+<p>The compare.ergm.output function compares for each network, all simulations merged by the merge.ergm.output. It returns different lists of combinations.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>list.output <span class="ot">&lt;-</span> <span class="fu">compare.ergm.output</span>(<span class="at">list.networks =</span> <span class="fu">unique</span>(exp.design<span class="sc">$</span>network),</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">list.nCov =</span> <span class="fu">unique</span>(exp.design<span class="sc">$</span>nCov),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fileloc =</span> <span class="st">&quot;output/&quot;</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">prefixe =</span> <span class="st">&quot;output&quot;</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">marginAIC =</span> <span class="dv">1000</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">display.info =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>You can use the output lists to relaunch some models or to move forward with analyzing a specific model.</p>
+</div>
+</div>
+<div id="analyse-mcmc" class="section level1">
+<h1>Analyse MCMC</h1>
+<p>Use the analyse.ERGM function to analyse the best combination. The function will save output files in the specified path.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">analyse.ERGM</span>(G, list.output, <span class="at">fileloc =</span> <span class="st">&quot;output/&quot;</span>, <span class="at">prefixe =</span> <span class="st">&#39;final&#39;</span>)</span></code></pre></div>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Ersts2021" class="csl-entry">
+Ersts, P.J. n.d. <span>“Geographic Distance Matrix Generator(version 1.2.3).”</span> <em>American Museum of Natural History, Center for Biodiversity and Conservation.</em> Accessed February 2021. <a href="http://biodiversityinformatics.amnh.org/open_source/gdmg">http://biodiversityinformatics.amnh.org/open_source/gdmg</a>.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

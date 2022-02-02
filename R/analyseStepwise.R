@@ -1,0 +1,52 @@
+#' Summarize stepwise output
+#'
+#' @description  FIX ME
+#'
+#' @param stepwise.summary list
+#' 
+#' @import ggplot2
+#' 
+#' @return FIX ME
+#' 
+#' @export
+
+analyseStepwise <- function(stepwise.summary){
+  
+  
+  list.aic <- stepwise.summary %>% lapply(., function(output) output$list.aic) %>% unlist
+  cat("AIC distribution: \n")
+  list.aic %>% summary %>% print
+  
+p <- ggplot(data.frame(steps = seq(list.aic%>% length),list.aic=list.aic),
+         aes(x = steps, y = list.aic)) +
+    geom_line() +
+    ylab("AIC") + 
+    xlab("Stepwise steps") %>% return
+  
+selected.elements <- stepwise.summary[stepwise.summary %>% length][[1]]$formula %>% substr(., gregexpr("\\~", .)[[1]][1] + 1 , nchar(.) -1) %>% 
+  strsplit(., split = "\\+") %>% 
+  unlist %>% gsub(" ", "", .) %>% gsub("\\\\", "", .) %>% gsub(
+    pattern = ('\\"'), 
+    replacement = '', 
+    x = .
+  ) 
+
+terms <- sapply(selected.elements, function(x) strsplit(x, ",level.*")) %>% unlist %>% gsub(
+  pattern = ('\\('), 
+  replacement = ' - ', 
+  x = .
+) %>% gsub(
+  pattern = ('\\)'), 
+  replacement = '', 
+  x = .
+)
+
+levels.cov <- sapply(selected.elements, function(x){if(grepl("level",x)) strsplit(x,"=")[[1]] %>% rev %>% .[1] %>% gsub(".*?([0-9]+).*", "\\1", .) else 0}) %>% unlist %>% as.character %>% as.numeric
+nterms <- terms %>% table %>% data.frame %>% setNames(c("term","nCov"))
+terms <- data.frame(terms, levels.cov) %>% split(., .$terms) %>% lapply(., function(x) x$levels.cov)
+
+return(list(plot = p, 
+            output.summary =list(selected.elements,
+                    terms,
+                    nterms)))
+}

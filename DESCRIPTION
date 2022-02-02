@@ -1,0 +1,56 @@
+Package: SwineNet
+Title: Swine network Analysis
+Version: 0.2.0
+Authors@R: 
+    c(person(given = "Pachka",
+           family = "Hammami",
+           role = c("aut", "cre"),
+           email = "pachka.hammami@anses.fr",
+           comment = c(ORCID = "0000-0002-7490-6257")),
+    person(given = "Stefan",
+             family = "Widgren",
+             role = c("aut"),
+             email = "stefan.widgren@sva.se",
+             comment = c(ORCID = "0000-0001-5745-2284")),
+    person(given = "Morgane",
+           family = "Salines",
+           role = c("aut"),
+           email = "morgane.salines@agriculture.gouv.fr"),
+    person(given = "Mathieu",
+           family = "Andraud",
+           role = c("aut"),
+           email = "mathieu.andraud@anses.fr",
+           comment = c(ORCID = "0000-0003-2891-2901")))
+Description: The package provides functions and package used to perform the network analysis of swine industry at national scale. It is based on French dataset and expertise.
+License: `use_mit_license()`
+Encoding: UTF-8
+LazyData: true
+Depends:
+    magrittr,
+    ggplot2,
+    scales,
+    tmaptools,
+    openxlsx,
+    doParallel,
+    future.apply,
+    R (>= 4.0.2)
+Imports:
+    broom,
+    igraph,
+    statnet,
+    raster,
+    intergraph,
+    ggplotify,
+    plyr,
+    Imap,
+    data.table
+Suggests:
+    snow,
+    rgeos,
+    foreach,
+    tibble,
+    knitr,
+    rmarkdown
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Description</title>
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Description</h1>
+
+
+
+<div id="load-and-install-swinenet-package" class="section level1">
+<h1>Load and install SwineNet package</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">list.of.packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;SwineNet&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2">new.packages &lt;-<span class="st"> </span>list.of.packages[<span class="op">!</span>(list.of.packages <span class="op">%in%</span><span class="st"> </span><span class="kw">installed.packages</span>()[,<span class="st">&quot;Package&quot;</span>])]</a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="cf">if</span>(<span class="kw">length</span>(new.packages)) <span class="kw">install.packages</span>(new.packages)</a>
+<a class="sourceLine" id="cb1-4" title="4"></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="kw">lapply</span>(list.of.packages, require, <span class="dt">character.only =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co">#&gt; Loading required package: SwineNet</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; Loading required package: magrittr</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co">#&gt; Loading required package: ggplot2</span></a>
+<a class="sourceLine" id="cb1-9" title="9"><span class="co">#&gt; Loading required package: scales</span></a>
+<a class="sourceLine" id="cb1-10" title="10"><span class="co">#&gt; Loading required package: tmaptools</span></a>
+<a class="sourceLine" id="cb1-11" title="11"><span class="co">#&gt; Loading required package: openxlsx</span></a>
+<a class="sourceLine" id="cb1-12" title="12"><span class="co">#&gt; Loading required package: doParallel</span></a>
+<a class="sourceLine" id="cb1-13" title="13"><span class="co">#&gt; Loading required package: foreach</span></a>
+<a class="sourceLine" id="cb1-14" title="14"><span class="co">#&gt; Loading required package: iterators</span></a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; Loading required package: parallel</span></a>
+<a class="sourceLine" id="cb1-16" title="16"><span class="co">#&gt; Loading required package: future.apply</span></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="co">#&gt; Loading required package: future</span></a>
+<a class="sourceLine" id="cb1-18" title="18"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb1-19" title="19"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
+<p>Load example datasets</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">data</span>(listPremises)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="kw">data</span>(listMovements)</a></code></pre></div>
+<p>Define a list of attributes for premises to keep in the network</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">premises.attributs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;siteID&quot;</span>, <span class="st">&quot;farmGroup&quot;</span>,  <span class="st">&quot;type&quot;</span>, <span class="st">&quot;freerange&quot;</span>, <span class="st">&quot;BRS&quot;</span>, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>, <span class="st">&quot;mainland&quot;</span>)</a></code></pre></div>
+<p>Add year, month and semester to the movement data.frame using timewindows function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">listMovements &lt;-<span class="st"> </span><span class="kw">timewindows</span>(listMovements, <span class="dt">formatDate =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</a></code></pre></div>
+</div>
+<div id="build-network" class="section level1">
+<h1>Build network</h1>
+<p>Produce igraph graph using the movements data.frame (both first columns should respectivelly be named “from” and “to” and should be consistent with the premises ids) and the premises data.frame (site id has to be the first column). Arguments ‘path.save’ and ‘prefixe’ are requested only if save.network is TRUE. By default the duplicated edges will be kept and loops will be removed, use arguments: remove.duplicated.edges and remove.loop.edges to modify.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> listMovements,</a>
+<a class="sourceLine" id="cb5-2" title="2">                      <span class="dt">premises =</span> listPremises[,premises.attributs],</a>
+<a class="sourceLine" id="cb5-3" title="3">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>,</a>
+<a class="sourceLine" id="cb5-4" title="4">                      <span class="dt">remove.duplicated.edges =</span> F,</a>
+<a class="sourceLine" id="cb5-5" title="5">                      <span class="dt">remove.loop.edges =</span> T)</a></code></pre></div>
+<div id="limit-analysis-to-a-subset-of-premises" class="section level2">
+<h2>Limit analysis to a subset of premises</h2>
+<p>To limit the analysis to a subset of premises of edges. Update the premises and/or movements data.frames. For example: select premises on the mainland</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">listPremises &lt;-<span class="st"> </span>listPremises[<span class="kw">which</span>(listPremises<span class="op">$</span>mainland<span class="op">==</span><span class="ot">TRUE</span>),]</a>
+<a class="sourceLine" id="cb6-2" title="2">premises.attributs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;siteID&quot;</span>, <span class="st">&quot;farmGroup&quot;</span>,  <span class="st">&quot;type&quot;</span>, <span class="st">&quot;freerange&quot;</span>, <span class="st">&quot;BRS&quot;</span>, <span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>)</a></code></pre></div>
+<div id="subset-of-farms-select-active-premises-of-the-national-industry-in-the-mainland" class="section level3">
+<h3>Subset of farms: select active premises of the national industry in the mainland</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">selectedFARMS &lt;-<span class="st"> </span>listPremises[<span class="kw">which</span>(listPremises<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>,<span class="st">&quot;BS&quot;</span>,<span class="st">&quot;SL&quot;</span>)),premises.attributs]</a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">related.movements &lt;-<span class="st"> </span>listMovements[<span class="kw">which</span>(listMovements<span class="op">$</span>from <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="st">                                               </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb7-8" title="8">                      <span class="dt">premises =</span> selectedFARMS[,premises.attributs],</a>
+<a class="sourceLine" id="cb7-9" title="9">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Repeat the operation excluding slaughterhouses and boar stations</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">selectedFARMS &lt;-<span class="st"> </span>listPremises[<span class="kw">which</span>(listPremises<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</a>
+<a class="sourceLine" id="cb8-2" title="2">                              premises.attributs]</a>
+<a class="sourceLine" id="cb8-3" title="3"></a>
+<a class="sourceLine" id="cb8-4" title="4">related.movements &lt;-<span class="st"> </span>listMovements[<span class="kw">which</span>(listMovements<span class="op">$</span>from <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="st">                                           </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
+<a class="sourceLine" id="cb8-6" title="6"></a>
+<a class="sourceLine" id="cb8-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb8-8" title="8">                      <span class="dt">premises =</span> selectedFARMS,</a>
+<a class="sourceLine" id="cb8-9" title="9">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+</div>
+</div>
+<div id="generate-subnetworks-based-on-edge-attribute-such-as-various-time-windows-or-type-of-transport" class="section level2">
+<h2>Generate subnetworks based on edge attribute (such as various time windows or type of transport)</h2>
+<p>Use splitByEdges term of the ‘generate.network’ function. ‘splitByEdges’ attribute should refer to a qualitative variable in movements data.frame. Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">selectedFARMS &lt;-<span class="st"> </span>listPremises[<span class="kw">which</span>(listPremises<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</a>
+<a class="sourceLine" id="cb9-2" title="2">                              premises.attributs]</a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4">related.movements &lt;-<span class="st"> </span>listMovements[<span class="kw">which</span>(listMovements<span class="op">$</span>from <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="st">                                               </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb9-8" title="8">                      <span class="dt">premises =</span> selectedFARMS,</a>
+<a class="sourceLine" id="cb9-9" title="9">                      <span class="dt">splitByEdges =</span> <span class="kw">c</span>(<span class="st">&quot;MType&quot;</span>, <span class="st">&quot;year&quot;</span>),</a>
+<a class="sourceLine" id="cb9-10" title="10">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb9-11" title="11"></a>
+<a class="sourceLine" id="cb9-12" title="12">G <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb9-13" title="13"><span class="co">#&gt; [1] &quot;MType.growingPigsMov.for.allPremises&quot;</span></a>
+<a class="sourceLine" id="cb9-14" title="14"><span class="co">#&gt; [2] &quot;MType.pigletsMov.for.allPremises&quot;    </span></a>
+<a class="sourceLine" id="cb9-15" title="15"><span class="co">#&gt; [3] &quot;MType.rpSowsMov.for.allPremises&quot;     </span></a>
+<a class="sourceLine" id="cb9-16" title="16"><span class="co">#&gt; [4] &quot;year.2019Mov.for.allPremises&quot;        </span></a>
+<a class="sourceLine" id="cb9-17" title="17"><span class="co">#&gt; [5] &quot;year.2020Mov.for.allPremises&quot;</span></a></code></pre></div>
+</div>
+<div id="generate-subnetworks-based-on-vertex-attribute-type-of-farms" class="section level2">
+<h2>Generate subnetworks based on vertex attribute (type of farms)</h2>
+<p>Use splitByVertex term of the ‘generate.network’ function. ‘splitByVertex’ attribute should refer to a qualitative variable in premises data.frame. Note that, the general network with all Premises can be include by adding a NA object in the splitByVertex vector. Note that, splitByEdges and splitByVertex can be used jointly and networks will be produced for all combinations of movement subsets and premise subsets.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
+<a class="sourceLine" id="cb10-2" title="2">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb10-3" title="3">                      <span class="dt">premises =</span> selectedFARMS,</a>
+<a class="sourceLine" id="cb10-4" title="4">                      <span class="dt">splitByVertex =</span> <span class="st">&quot;type&quot;</span>,</a>
+<a class="sourceLine" id="cb10-5" title="5">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-6" title="6"></a>
+<a class="sourceLine" id="cb10-7" title="7">G <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb10-8" title="8"><span class="co">#&gt; [1] &quot;allMov.for.type.FAPremises&quot;  &quot;allMov.for.type.FFPremises&quot; </span></a>
+<a class="sourceLine" id="cb10-9" title="9"><span class="co">#&gt; [3] &quot;allMov.for.type.FIPremises&quot;  &quot;allMov.for.type.FPWPremises&quot;</span></a>
+<a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; [5] &quot;allMov.for.type.MUPremises&quot;  &quot;allMov.for.type.NUPremises&quot; </span></a>
+<a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; [7] &quot;allMov.for.type.PWPremises&quot;  &quot;allMov.for.type.PWFPremises&quot;</span></a>
+<a class="sourceLine" id="cb10-12" title="12"></a>
+<a class="sourceLine" id="cb10-13" title="13">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb10-14" title="14">                      <span class="dt">premises =</span> selectedFARMS,</a>
+<a class="sourceLine" id="cb10-15" title="15">                      <span class="dt">splitByEdges =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;semester&quot;</span>),</a>
+<a class="sourceLine" id="cb10-16" title="16">                      <span class="dt">splitByVertex =</span> <span class="st">&quot;freerange&quot;</span>,</a>
+<a class="sourceLine" id="cb10-17" title="17">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb10-18" title="18"></a>
+<a class="sourceLine" id="cb10-19" title="19">G <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb10-20" title="20"><span class="co">#&gt; [1] &quot;allMov.for.freerange.noPremises&quot;             </span></a>
+<a class="sourceLine" id="cb10-21" title="21"><span class="co">#&gt; [2] &quot;semester.2019_1Mov.for.freerange.noPremises&quot; </span></a>
+<a class="sourceLine" id="cb10-22" title="22"><span class="co">#&gt; [3] &quot;semester.2019_2Mov.for.freerange.noPremises&quot; </span></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="co">#&gt; [4] &quot;semester.2020_1Mov.for.freerange.noPremises&quot; </span></a>
+<a class="sourceLine" id="cb10-24" title="24"><span class="co">#&gt; [5] &quot;allMov.for.freerange.yesPremises&quot;            </span></a>
+<a class="sourceLine" id="cb10-25" title="25"><span class="co">#&gt; [6] &quot;semester.2019_1Mov.for.freerange.yesPremises&quot;</span></a>
+<a class="sourceLine" id="cb10-26" title="26"><span class="co">#&gt; [7] &quot;semester.2019_2Mov.for.freerange.yesPremises&quot;</span></a>
+<a class="sourceLine" id="cb10-27" title="27"><span class="co">#&gt; [8] &quot;semester.2020_1Mov.for.freerange.yesPremises&quot;</span></a></code></pre></div>
+</div>
+</div>
+<div id="network-representations" class="section level1">
+<h1>Network representations</h1>
+<p>Networks can be represented based on its attributes with swineNetwork.representation function.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">igraph<span class="op">::</span><span class="kw">get.edge.attribute</span>(G[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb11-2" title="2">igraph<span class="op">::</span><span class="kw">get.vertex.attribute</span>(G[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb11-3" title="3"></a>
+<a class="sourceLine" id="cb11-4" title="4">p &lt;-<span class="st"> </span><span class="kw">swineNetwork.representation</span>(<span class="dt">networktoplot =</span> G[[<span class="dv">1</span>]],</a>
+<a class="sourceLine" id="cb11-5" title="5">                        <span class="dt">title =</span> <span class="st">&quot;network representation&quot;</span>,</a>
+<a class="sourceLine" id="cb11-6" title="6">                        <span class="dt">movements.type.lab =</span> <span class="st">&quot;MType&quot;</span>,</a>
+<a class="sourceLine" id="cb11-7" title="7">                        <span class="dt">premises.type.lab =</span> <span class="st">&quot;type&quot;</span>)</a>
+<a class="sourceLine" id="cb11-8" title="8"></a>
+<a class="sourceLine" id="cb11-9" title="9">p</a></code></pre></div>
+<p>If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map.network function. Use the map.network function to map the network.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">igraph<span class="op">::</span><span class="kw">get.vertex.attribute</span>(G[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span><span class="st"> </span>names</a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] &quot;name&quot;      &quot;farmGroup&quot; &quot;type&quot;      &quot;freerange&quot; &quot;BRS&quot;       &quot;lon&quot;      </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [7] &quot;lat&quot;</span></a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw">map.network</span>(</a>
+<a class="sourceLine" id="cb12-6" title="6">  <span class="dt">network =</span> G[[<span class="dv">1</span>]],</a>
+<a class="sourceLine" id="cb12-7" title="7">  <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;FR&quot;</span>),</a>
+<a class="sourceLine" id="cb12-8" title="8">  <span class="dt">premisescolours =</span> <span class="st">&quot;type&quot;</span>,</a>
+<a class="sourceLine" id="cb12-9" title="9">  <span class="dt">title =</span> <span class="st">&quot;network map&quot;</span>,</a>
+<a class="sourceLine" id="cb12-10" title="10">  <span class="dt">topfeature =</span> <span class="st">&quot;point&quot;</span></a>
+<a class="sourceLine" id="cb12-11" title="11">)</a>
+<a class="sourceLine" id="cb12-12" title="12"><span class="co">#&gt; Regions defined for each Polygons</span></a>
+<a class="sourceLine" id="cb12-13" title="13"><span class="co">#&gt; Warning: Removed 430 rows containing missing values (geom_curve).</span></a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="network-centralities" class="section level1">
+<h1>Network centralities</h1>
+<p>A distance matrix of pairwise of premises can be generated using the GeoDistanceInMetresMatrix function.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">distMatrix &lt;-<span class="st"> </span><span class="kw">GeoDistanceInMetresMatrix</span>(selectedFARMS[,<span class="kw">c</span>(<span class="st">&quot;siteID&quot;</span>,<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)])</a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt; Loading required package: Imap</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co"># or in km</span></a>
+<a class="sourceLine" id="cb13-4" title="4">distMatrix &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">GeoDistanceInMetresMatrix</span>(selectedFARMS[,<span class="kw">c</span>(<span class="st">&quot;siteID&quot;</span>,<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>,<span class="dv">1</span>)</a></code></pre></div>
+<p>network.centralities function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix. Use <code>do.call(rbind, lapply(G, network.centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co">#  without the distance</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">network.centralities</span>(G[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="co">#&gt; Warning in closeness(g): At centrality.c:2784 :closeness centrality is not well-</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt; defined for disconnected graphs</span></a>
+<a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt;                    vcount            count.isolates                    ecount </span></a>
+<a class="sourceLine" id="cb14-6" title="6"><span class="co">#&gt;              9.700000e+01              0.000000e+00              5.330000e+02 </span></a>
+<a class="sourceLine" id="cb14-7" title="7"><span class="co">#&gt;                 nClusters            maxClusterSize            medClusterSize </span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="co">#&gt;              1.000000e+00              9.700000e+01              9.700000e+01 </span></a>
+<a class="sourceLine" id="cb14-9" title="9"><span class="co">#&gt; 99thpercentileClusterSize                avg.degree                med.degree </span></a>
+<a class="sourceLine" id="cb14-10" title="10"><span class="co">#&gt;              9.700000e+01              1.098969e+01              1.000000e+01 </span></a>
+<a class="sourceLine" id="cb14-11" title="11"><span class="co">#&gt;              med.indegree             med.outdegree            avg.betweeness </span></a>
+<a class="sourceLine" id="cb14-12" title="12"><span class="co">#&gt;              6.000000e+00              4.000000e+00              1.613196e+02 </span></a>
+<a class="sourceLine" id="cb14-13" title="13"><span class="co">#&gt;             avg.closeness             graph.density                  diameter </span></a>
+<a class="sourceLine" id="cb14-14" title="14"><span class="co">#&gt;              2.509336e-03              5.723797e-02              6.000000e+00 </span></a>
+<a class="sourceLine" id="cb14-15" title="15"><span class="co">#&gt;             assortativity               reciprocity              transitivity </span></a>
+<a class="sourceLine" id="cb14-16" title="16"><span class="co">#&gt;              2.022025e-03              7.129456e-02              1.752891e-01 </span></a>
+<a class="sourceLine" id="cb14-17" title="17"><span class="co">#&gt;       average.path.length     JaccquarSimilCoefNull </span></a>
+<a class="sourceLine" id="cb14-18" title="18"><span class="co">#&gt;              2.871546e+00              3.482000e+01</span></a>
+<a class="sourceLine" id="cb14-19" title="19"></a>
+<a class="sourceLine" id="cb14-20" title="20"><span class="co">#  or with the distance</span></a>
+<a class="sourceLine" id="cb14-21" title="21"><span class="kw">network.centralities</span>(<span class="dt">network =</span> G[[<span class="dv">1</span>]], <span class="dt">include.distance =</span> <span class="ot">TRUE</span>, <span class="dt">distance.matrix =</span> distMatrix)</a>
+<a class="sourceLine" id="cb14-22" title="22"><span class="co">#&gt; Warning in closeness(g): At centrality.c:2784 :closeness centrality is not well-</span></a>
+<a class="sourceLine" id="cb14-23" title="23"><span class="co">#&gt; defined for disconnected graphs</span></a>
+<a class="sourceLine" id="cb14-24" title="24"><span class="co">#&gt;                    vcount            count.isolates                    ecount </span></a>
+<a class="sourceLine" id="cb14-25" title="25"><span class="co">#&gt;              9.700000e+01              0.000000e+00              5.330000e+02 </span></a>
+<a class="sourceLine" id="cb14-26" title="26"><span class="co">#&gt;                 nClusters            maxClusterSize            medClusterSize </span></a>
+<a class="sourceLine" id="cb14-27" title="27"><span class="co">#&gt;              1.000000e+00              9.700000e+01              9.700000e+01 </span></a>
+<a class="sourceLine" id="cb14-28" title="28"><span class="co">#&gt; 99thpercentileClusterSize                avg.degree                med.degree </span></a>
+<a class="sourceLine" id="cb14-29" title="29"><span class="co">#&gt;              9.700000e+01              1.098969e+01              1.000000e+01 </span></a>
+<a class="sourceLine" id="cb14-30" title="30"><span class="co">#&gt;              med.indegree             med.outdegree            avg.betweeness </span></a>
+<a class="sourceLine" id="cb14-31" title="31"><span class="co">#&gt;              6.000000e+00              4.000000e+00              1.613196e+02 </span></a>
+<a class="sourceLine" id="cb14-32" title="32"><span class="co">#&gt;             avg.closeness             graph.density                  diameter </span></a>
+<a class="sourceLine" id="cb14-33" title="33"><span class="co">#&gt;              2.509336e-03              5.723797e-02              6.000000e+00 </span></a>
+<a class="sourceLine" id="cb14-34" title="34"><span class="co">#&gt;             assortativity               reciprocity              transitivity </span></a>
+<a class="sourceLine" id="cb14-35" title="35"><span class="co">#&gt;              2.022025e-03              7.129456e-02              1.752891e-01 </span></a>
+<a class="sourceLine" id="cb14-36" title="36"><span class="co">#&gt;       average.path.length     JaccquarSimilCoefNull             distance.2.5% </span></a>
+<a class="sourceLine" id="cb14-37" title="37"><span class="co">#&gt;              2.871546e+00              3.482000e+01              6.541000e+01 </span></a>
+<a class="sourceLine" id="cb14-38" title="38"><span class="co">#&gt;              distance.med            distance.97.5% </span></a>
+<a class="sourceLine" id="cb14-39" title="39"><span class="co">#&gt;              2.934000e+02              6.075800e+02</span></a></code></pre></div>
+<p>```</p>
+</div>
+<div id="exponential-random-graph-model" class="section level1">
+<h1>Exponential random graph model</h1>
+<div id="design-the-experiment" class="section level2">
+<h2>Design the experiment</h2>
+<p>ergm package works with network, transformation of igraph graph into network can be made using intergraph package.</p>
+<div id="which-covariables-to-include-in-the-bidirectional-stepwise-procedure" class="section level3">
+<h3>Which covariables to include in the bidirectional stepwise procedure?</h3>
+<p>Define a list of covariates to include in the bidirectional stepwise procedure. The list can contain terms related to nodal and edges attributes as well as structural terms. Edges attributes can only be included with a matrix involving a value for each pair of premises (eg. distance matrix).</p>
+<p>Use expertise, summary function and mixingmatrix function to define the covariables. Summary and mixingmatrix functions work with network, not igraph.</p>
+<p>Definition for implemented terms can be found within the ergm package help (?ergm.terms).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">g &lt;-<span class="st"> </span>intergraph<span class="op">::</span><span class="kw">asNetwork</span>(G[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb15-2" title="2"></a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb15-4" title="4"><span class="co">########### Nodal and edges attributes</span></a>
+<a class="sourceLine" id="cb15-5" title="5"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb15-6" title="6"><span class="kw">library</span>(network)</a>
+<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; &#39;network&#39; 1.17.1 (2021-06-12), part of the Statnet Project</span></a>
+<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; * &#39;news(package=&quot;network&quot;)&#39; for changes since last version</span></a>
+<a class="sourceLine" id="cb15-10" title="10"><span class="co">#&gt; * &#39;citation(&quot;network&quot;)&#39; for citation information</span></a>
+<a class="sourceLine" id="cb15-11" title="11"><span class="co">#&gt; * &#39;https://statnet.org&#39; for help, support, and other information</span></a>
+<a class="sourceLine" id="cb15-12" title="12"></a>
+<a class="sourceLine" id="cb15-13" title="13">network<span class="op">::</span><span class="kw">list.vertex.attributes</span>(g)</a>
+<a class="sourceLine" id="cb15-14" title="14"><span class="co">#&gt; [1] &quot;BRS&quot;          &quot;farmGroup&quot;    &quot;freerange&quot;    &quot;lat&quot;          &quot;lon&quot;         </span></a>
+<a class="sourceLine" id="cb15-15" title="15"><span class="co">#&gt; [6] &quot;na&quot;           &quot;type&quot;         &quot;vertex.names&quot;</span></a>
+<a class="sourceLine" id="cb15-16" title="16"></a>
+<a class="sourceLine" id="cb15-17" title="17">farmGroup.levels &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">get.vertex.attribute</span>(g, <span class="st">&quot;farmGroup&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-18" title="18">type.levels &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">get.vertex.attribute</span>(g, <span class="st">&quot;type&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-19" title="19">BRS.levels &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">get.vertex.attribute</span>(g, <span class="st">&quot;BRS&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-20" title="20">freerange.levels &lt;-<span class="st"> </span>network<span class="op">::</span><span class="kw">get.vertex.attribute</span>(g, <span class="st">&quot;freerange&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-21" title="21"></a>
+<a class="sourceLine" id="cb15-22" title="22">elements &lt;-<span class="st"> </span><span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb15-23" title="23">  <span class="st">&quot;edgecov(distMatrix)&quot;</span>,</a>
+<a class="sourceLine" id="cb15-24" title="24">  <span class="kw">paste</span>(<span class="st">&quot;nodefactor(</span><span class="ch">\&quot;</span><span class="st">farmGroup</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(farmGroup.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-25" title="25">  <span class="kw">paste</span>(<span class="st">&quot;nodeifactor(</span><span class="ch">\&quot;</span><span class="st">farmGroup</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(farmGroup.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-26" title="26">  <span class="kw">paste</span>(<span class="st">&quot;nodeofactor(</span><span class="ch">\&quot;</span><span class="st">farmGroup</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(farmGroup.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-27" title="27">  <span class="kw">paste</span>(<span class="st">&quot;nodefactor(</span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(type.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-28" title="28">  <span class="kw">paste</span>(<span class="st">&quot;nodeifactor(</span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(type.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-29" title="29">  <span class="kw">paste</span>(<span class="st">&quot;nodeofactor(</span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(type.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-30" title="30">  <span class="kw">paste</span>(<span class="st">&quot;nodefactor(</span><span class="ch">\&quot;</span><span class="st">BRS</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(BRS.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-31" title="31">  <span class="kw">paste</span>(<span class="st">&quot;nodeifactor(</span><span class="ch">\&quot;</span><span class="st">BRS</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(BRS.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-32" title="32">  <span class="kw">paste</span>(<span class="st">&quot;nodeofactor(</span><span class="ch">\&quot;</span><span class="st">BRS</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(BRS.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-33" title="33">  <span class="kw">paste</span>(<span class="st">&quot;nodefactor(</span><span class="ch">\&quot;</span><span class="st">freerange</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(freerange.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-34" title="34">  <span class="kw">paste</span>(<span class="st">&quot;nodeifactor(</span><span class="ch">\&quot;</span><span class="st">freerange</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(freerange.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-35" title="35">  <span class="kw">paste</span>(<span class="st">&quot;nodeofactor(</span><span class="ch">\&quot;</span><span class="st">freerange</span><span class="ch">\&quot;</span><span class="st">, levels=c(&quot;</span>,<span class="kw">seq</span>(freerange.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-36" title="36">  <span class="co"># interactions</span></a>
+<a class="sourceLine" id="cb15-37" title="37">  <span class="kw">paste</span>(<span class="st">&quot;nodematch(</span><span class="ch">\&quot;</span><span class="st">farmGroup</span><span class="ch">\&quot;</span><span class="st">, diff=F)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-38" title="38">  <span class="kw">paste</span>(<span class="st">&quot;nodematch(</span><span class="ch">\&quot;</span><span class="st">BRS</span><span class="ch">\&quot;</span><span class="st">, diff=F)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-39" title="39">  <span class="kw">paste</span>(<span class="st">&quot;nodematch(</span><span class="ch">\&quot;</span><span class="st">farmGroup</span><span class="ch">\&quot;</span><span class="st">, diff=T, levels=c(&quot;</span>,<span class="kw">seq</span>(farmGroup.levels),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-40" title="40">  <span class="kw">paste</span>(<span class="st">&quot;nodemix(</span><span class="ch">\&quot;</span><span class="st">freerange</span><span class="ch">\&quot;</span><span class="st">, levels2=c(&quot;</span>,<span class="kw">seq</span>(freerange.levels<span class="op">^</span><span class="dv">2</span>),<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-41" title="41">  <span class="kw">paste</span>(<span class="st">&quot;nodemix(</span><span class="ch">\&quot;</span><span class="st">BRS</span><span class="ch">\&quot;</span><span class="st">, levels2=c(&quot;</span>,<span class="kw">seq</span>(BRS.levels)<span class="op">^</span><span class="dv">2</span>,<span class="st">&quot;))&quot;</span>),</a>
+<a class="sourceLine" id="cb15-42" title="42">  <span class="kw">paste</span>(<span class="st">&quot;nodemix(</span><span class="ch">\&quot;</span><span class="st">type</span><span class="ch">\&quot;</span><span class="st">, levels2=c(&quot;</span>,<span class="kw">seq</span>(type.levels<span class="op">^</span><span class="dv">2</span>),<span class="st">&quot;))&quot;</span>)<span class="co">#,</span></a>
+<a class="sourceLine" id="cb15-43" title="43">  <span class="co"># paste(&quot;asymmetric(\&quot;type\&quot;)&quot;),</span></a>
+<a class="sourceLine" id="cb15-44" title="44">  <span class="co"># paste(&quot;asymmetric(\&quot;type\&quot;, diff = T, levels=c(&quot;,seq(type.levels),&quot;))&quot;)</span></a>
+<a class="sourceLine" id="cb15-45" title="45">  ) <span class="op">%&gt;%</span><span class="st"> </span>as.list</a>
+<a class="sourceLine" id="cb15-46" title="46"></a>
+<a class="sourceLine" id="cb15-47" title="47">elements <span class="op">%&gt;%</span><span class="st"> </span>unlist <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-48" title="48"><span class="co">#&gt; [1] 155</span></a>
+<a class="sourceLine" id="cb15-49" title="49"></a>
+<a class="sourceLine" id="cb15-50" title="50"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb15-51" title="51"><span class="co">########### Structural characteristics</span></a>
+<a class="sourceLine" id="cb15-52" title="52"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb15-53" title="53"></a>
+<a class="sourceLine" id="cb15-54" title="54"><span class="kw">library</span>(sna)</a>
+<a class="sourceLine" id="cb15-55" title="55"><span class="co">#&gt; Loading required package: statnet.common</span></a>
+<a class="sourceLine" id="cb15-56" title="56"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-57" title="57"><span class="co">#&gt; Attaching package: &#39;statnet.common&#39;</span></a>
+<a class="sourceLine" id="cb15-58" title="58"><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></a>
+<a class="sourceLine" id="cb15-59" title="59"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb15-60" title="60"><span class="co">#&gt;     attr, order</span></a>
+<a class="sourceLine" id="cb15-61" title="61"><span class="co">#&gt; sna: Tools for Social Network Analysis</span></a>
+<a class="sourceLine" id="cb15-62" title="62"><span class="co">#&gt; Version 2.6 created on 2020-10-5.</span></a>
+<a class="sourceLine" id="cb15-63" title="63"><span class="co">#&gt; copyright (c) 2005, Carter T. Butts, University of California-Irvine</span></a>
+<a class="sourceLine" id="cb15-64" title="64"><span class="co">#&gt;  For citation information, type citation(&quot;sna&quot;).</span></a>
+<a class="sourceLine" id="cb15-65" title="65"><span class="co">#&gt;  Type help(package=&quot;sna&quot;) to get started.</span></a>
+<a class="sourceLine" id="cb15-66" title="66">ostar.levels &lt;-<span class="st"> </span><span class="kw">degree</span>(g,<span class="dt">gmode =</span> <span class="st">&quot;out&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique</a>
+<a class="sourceLine" id="cb15-67" title="67">istar.levels &lt;-<span class="st"> </span><span class="kw">degree</span>(g,<span class="dt">gmode =</span> <span class="st">&quot;in&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>unique</a>
+<a class="sourceLine" id="cb15-68" title="68">triadcensus.levels &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">15</span>)[<span class="kw">which</span>(<span class="kw">summary</span>(g <span class="op">~</span><span class="st"> </span><span class="kw">triadcensus</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">15</span>)) <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>)]</a>
+<a class="sourceLine" id="cb15-69" title="69">ITP.levels &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">summary</span>(g<span class="op">~</span><span class="kw">ddsp</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="st">&quot;ITP&quot;</span>)) <span class="op">!=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb15-70" title="70">OTP.levels &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">summary</span>(g<span class="op">~</span><span class="kw">ddsp</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="st">&quot;OTP&quot;</span>)) <span class="op">!=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb15-71" title="71">OSP.levels &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">summary</span>(g<span class="op">~</span><span class="kw">ddsp</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="st">&quot;OSP&quot;</span>)) <span class="op">!=</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb15-72" title="72"></a>
+<a class="sourceLine" id="cb15-73" title="73">structural.elements &lt;-<span class="st"> </span><span class="kw">as.list</span>(<span class="kw">c</span>(</a>
+<a class="sourceLine" id="cb15-74" title="74">  <span class="st">&quot;edges&quot;</span>,<span class="st">&quot;twopath&quot;</span>, <span class="st">&quot;idegree1.5&quot;</span>, <span class="st">&quot;odegree1.5&quot;</span>, <span class="st">&quot;transitive&quot;</span>,</a>
+<a class="sourceLine" id="cb15-75" title="75">  <span class="kw">paste</span>(<span class="st">&quot;ostar(&quot;</span>,<span class="kw">seq</span>(ostar.levels),<span class="st">&quot;)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-76" title="76">  <span class="kw">paste</span>(<span class="st">&quot;istar(&quot;</span>,<span class="kw">seq</span>(istar.levels),<span class="st">&quot;)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-77" title="77">  <span class="kw">paste</span>(<span class="st">&quot;triadcensus(&quot;</span>,triadcensus.levels,<span class="st">&quot;)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-78" title="78">  <span class="kw">paste</span>(<span class="st">&quot;ddsp(&quot;</span>,<span class="kw">seq</span>(OSP.levels),<span class="st">&quot;, type =</span><span class="ch">\&quot;</span><span class="st">OSP</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-79" title="79">  <span class="kw">paste</span>(<span class="st">&quot;ddsp(&quot;</span>,<span class="kw">seq</span>(ITP.levels),<span class="st">&quot;, type =</span><span class="ch">\&quot;</span><span class="st">ITP</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>),</a>
+<a class="sourceLine" id="cb15-80" title="80">  <span class="kw">paste</span>(<span class="st">&quot;ddsp(&quot;</span>,<span class="kw">seq</span>(OTP.levels),<span class="st">&quot;, type =</span><span class="ch">\&quot;</span><span class="st">OTP</span><span class="ch">\&quot;</span><span class="st">)&quot;</span>)</a>
+<a class="sourceLine" id="cb15-81" title="81">))</a>
+<a class="sourceLine" id="cb15-82" title="82"></a>
+<a class="sourceLine" id="cb15-83" title="83">structural.elements <span class="op">%&gt;%</span><span class="st"> </span>unlist <span class="op">%&gt;%</span><span class="st"> </span>length</a>
+<a class="sourceLine" id="cb15-84" title="84"><span class="co">#&gt; [1] 86</span></a></code></pre></div>
+</div>
+</div>
+<div id="launch-the-stepwise-procedure" class="section level2">
+<h2>Launch the stepwise procedure</h2>
+<p>Define the base formula and launch the stepwise procedure. If the function crashes, reload the last stepwise.summary output saved and relaunch the procedure the covariable that produced the crash will be skip for this step. As the function call a future.apply function allowing for parallelisation, use closeAllConnections() after a crash, make sure that all connections have been closed before relaunch. Once the forward approach is complete, initiate the backward approach starting from the last output saved from the forward approach, then the forward approach again from the last output saved from the backward approach, etc. until no improvement is possible in any direction.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="co">########### Run the stepwise selection process</span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-4" title="4"></a>
+<a class="sourceLine" id="cb16-5" title="5">base.formula &lt;-<span class="st"> &quot;g ~ edges&quot;</span></a>
+<a class="sourceLine" id="cb16-6" title="6"></a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="co">########### Forward stepwise procedure</span></a>
+<a class="sourceLine" id="cb16-9" title="9"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-10" title="10"></a>
+<a class="sourceLine" id="cb16-11" title="11"><span class="kw">stepwise.selection.forERGM</span>(base.formula, <span class="co"># string</span></a>
+<a class="sourceLine" id="cb16-12" title="12">                           <span class="dt">nbworkers =</span>  <span class="dv">10</span>, <span class="co"># integer</span></a>
+<a class="sourceLine" id="cb16-13" title="13">                           <span class="dt">elements =</span> <span class="kw">append</span>(elements,structural.elements), <span class="co"># list</span></a>
+<a class="sourceLine" id="cb16-14" title="14">                           <span class="dt">network.name =</span> <span class="st">&quot;mynetwork&quot;</span>, <span class="co"># string</span></a>
+<a class="sourceLine" id="cb16-15" title="15">                           <span class="dt">results.path =</span> <span class="kw">getwd</span>(), <span class="co"># string</span></a>
+<a class="sourceLine" id="cb16-16" title="16">                           <span class="dt">maxduration =</span> <span class="dv">60</span><span class="op">*</span><span class="dv">60</span><span class="op">*</span><span class="dv">1</span>, <span class="co"># integer in seconds</span></a>
+<a class="sourceLine" id="cb16-17" title="17">                           <span class="dt">g =</span> g,</a>
+<a class="sourceLine" id="cb16-18" title="18">                           <span class="dt">mode =</span> <span class="st">&quot;forward&quot;</span>, <span class="co"># string &quot;forward&quot; or &quot;backward&quot; </span></a>
+<a class="sourceLine" id="cb16-19" title="19">                           <span class="dt">verbose =</span>T</a>
+<a class="sourceLine" id="cb16-20" title="20">)</a>
+<a class="sourceLine" id="cb16-21" title="21"></a>
+<a class="sourceLine" id="cb16-22" title="22"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-23" title="23"><span class="co">########### Backward stepwise procedure</span></a>
+<a class="sourceLine" id="cb16-24" title="24"><span class="co">########### </span></a>
+<a class="sourceLine" id="cb16-25" title="25"></a>
+<a class="sourceLine" id="cb16-26" title="26"></a>
+<a class="sourceLine" id="cb16-27" title="27"><span class="kw">load</span>(<span class="dt">file =</span> <span class="kw">getwd</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-28" title="28"><span class="st">  </span><span class="kw">list.files</span>(., <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-29" title="29"><span class="st">  </span>.[<span class="kw">grep</span>(<span class="kw">paste0</span>(<span class="st">&quot;stepwise.summary_mynetwork&quot;</span>),.)]<span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-30" title="30"><span class="st">  </span><span class="kw">extract</span>(<span class="kw">which.max</span>(<span class="kw">file.mtime</span>(.))))</a>
+<a class="sourceLine" id="cb16-31" title="31"></a>
+<a class="sourceLine" id="cb16-32" title="32">base.formula &lt;-<span class="st"> </span>stepwise.summary[[stepwise.summary <span class="op">%&gt;%</span><span class="st"> </span>length]]<span class="op">$</span>formula <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">substr</span>(., <span class="kw">gregexpr</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">g ~&quot;</span>, .)[[<span class="dv">1</span>]][<span class="dv">1</span>] , <span class="kw">nchar</span>(.)<span class="op">-</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb16-33" title="33"></a>
+<a class="sourceLine" id="cb16-34" title="34"></a>
+<a class="sourceLine" id="cb16-35" title="35"><span class="kw">stepwise.selection.forERGM</span>(base.formula,</a>
+<a class="sourceLine" id="cb16-36" title="36">                           <span class="dt">nbworkers =</span> <span class="dv">10</span>, <span class="co">#integer</span></a>
+<a class="sourceLine" id="cb16-37" title="37">                           <span class="dt">network.name =</span> <span class="st">&quot;mynetwork&quot;</span>, <span class="co"># string</span></a>
+<a class="sourceLine" id="cb16-38" title="38">                           <span class="dt">results.path =</span> <span class="kw">getwd</span>(),</a>
+<a class="sourceLine" id="cb16-39" title="39">                           <span class="dt">maxduration =</span> <span class="dv">60</span><span class="op">*</span><span class="dv">60</span><span class="op">*</span><span class="dv">2</span>, <span class="co"># integer in seconds</span></a>
+<a class="sourceLine" id="cb16-40" title="40">                           g,</a>
+<a class="sourceLine" id="cb16-41" title="41">                           distMatrix,</a>
+<a class="sourceLine" id="cb16-42" title="42">                           <span class="dt">mode =</span> <span class="st">&quot;backward&quot;</span>, <span class="co"># string &quot;forward&quot; or &quot;backward&quot; </span></a>
+<a class="sourceLine" id="cb16-43" title="43">                           <span class="dt">stepwise.summary =</span> stepwise.summary,</a>
+<a class="sourceLine" id="cb16-44" title="44">                           <span class="dt">verbose =</span> T</a>
+<a class="sourceLine" id="cb16-45" title="45">)</a></code></pre></div>
+</div>
+<div id="analyse-results" class="section level2">
+<h2>Analyse results</h2>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># read the most recent output</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="kw">load</span>(<span class="dt">file =</span> <span class="kw">list.files</span>(., <span class="dt">full.names =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="st">  </span>.[<span class="kw">grep</span>(<span class="kw">paste0</span>(<span class="st">&quot;stepwise.summary_mynetwork&quot;</span>),.)]<span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-4" title="4"><span class="st">  </span><span class="kw">extract</span>(<span class="kw">which.max</span>(<span class="kw">file.mtime</span>(.))))</a>
+<a class="sourceLine" id="cb17-5" title="5"></a>
+<a class="sourceLine" id="cb17-6" title="6">selected.terms &lt;-<span class="st"> </span><span class="kw">analyseStepwise</span>(stepwise.summary)</a></code></pre></div>
+</div>
+</div>
+<div id="analyse-the-selected-model" class="section level1">
+<h1>Analyse the selected model</h1>
+<p>Use the selectedERGM function to analyse the most parcimonious combinations of covariables. The function will save output files in the specified path. Runing time can be long, be patient.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">selectedERGM</span>(stepwise.summary,</a>
+<a class="sourceLine" id="cb18-2" title="2">             g,</a>
+<a class="sourceLine" id="cb18-3" title="3">             <span class="dt">outputpath=</span><span class="st">&#39;&#39;</span>,</a>
+<a class="sourceLine" id="cb18-4" title="4">             <span class="dt">distMatrix =</span> <span class="ot">NA</span>,</a>
+<a class="sourceLine" id="cb18-5" title="5">             <span class="dt">nsimGof =</span> <span class="dv">2000</span>,</a>
+<a class="sourceLine" id="cb18-6" title="6">             <span class="dt">nSimNet =</span> <span class="dv">5</span>,</a>
+<a class="sourceLine" id="cb18-7" title="7">             <span class="dt">maxtimeERGM =</span> <span class="dv">60</span><span class="op">*</span><span class="dv">60</span><span class="op">*</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb18-8" title="8">             <span class="dt">country.plot =</span> <span class="kw">c</span>(<span class="st">&quot;FR&quot;</span>),</a>
+<a class="sourceLine" id="cb18-9" title="9">             <span class="dt">nrepAIC =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb18-10" title="10">             <span class="dt">verbose =</span> T)</a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
