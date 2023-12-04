@@ -22,7 +22,7 @@ premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon
 listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
 
 ## -----------------------------------------------------------------------------
-G <- generate.network(movements = listMovements[,c("from","to")],
+G <- generate_network(movements = listMovements[,c("from","to")],
                       premises = listPremises[,premises.attributs],
                       save.network = FALSE,
                       remove.duplicated.edges = F,
@@ -39,7 +39,7 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
-G <- generate.network(movements = related.movements[,c("from","to")],
+G <- generate_network(movements = related.movements[,c("from","to")],
                       premises = selectedFARMS[,premises.attributs],
                       save.network = FALSE)
 
@@ -50,7 +50,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                            listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- generate_network(movements = related.movements,
                       premises = selectedFARMS,
                       save.network = FALSE)
 
@@ -61,7 +61,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- generate_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByEdges = c("MType", "year"),
                       save.network = FALSE)
@@ -70,14 +70,14 @@ G %>% names
 
 ## -----------------------------------------------------------------------------
 
-G <- generate.network(movements = related.movements,
+G <- generate_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByVertex = "type",
                       save.network = FALSE)
 
 G %>% names
 
-G <- generate.network(movements = related.movements,
+G <- generate_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByEdges = c(NA, "semester"),
                       splitByVertex = "freerange",
@@ -98,7 +98,7 @@ G %>% names
 ## ---- eval=F------------------------------------------------------------------
 #  igraph::get.vertex.attribute(G[[1]]) %>% names
 #  
-#  map.network(
+#  map_network(
 #    network = G[[1]],
 #    country = c("FR"),
 #    premisescolours = "type",
@@ -115,7 +115,7 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 
 ## -----------------------------------------------------------------------------
-network.centralities(G[[1]], distMatrix = F)
+network_centralities(G[[1]], distMatrix = F)
 
 ## -----------------------------------------------------------------------------
 g <- intergraph::asNetwork(G[[1]])

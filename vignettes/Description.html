@@ -350,7 +350,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div id="build-network" class="section level1">
 <h1>Build network</h1>
 <p>Produce igraph graph using the movements data.frame (both first columns should respectivelly be named “from” and “to” and should be consistent with the premises ids) and the premises data.frame (site id has to be the first column). Arguments ‘path.save’ and ‘prefixe’ are requested only if save.network is TRUE. By default the duplicated edges will be kept and loops will be removed, use arguments: remove.duplicated.edges and remove.loop.edges to modify.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> listMovements,</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> listMovements,</a>
 <a class="sourceLine" id="cb5-2" title="2">                      <span class="dt">premises =</span> listPremises[,premises.attributs],</a>
 <a class="sourceLine" id="cb5-3" title="3">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>,</a>
 <a class="sourceLine" id="cb5-4" title="4">                      <span class="dt">remove.duplicated.edges =</span> F,</a>
@@ -368,7 +368,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb7-4" title="4"><span class="st">                                               </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
 <a class="sourceLine" id="cb7-5" title="5"></a>
 <a class="sourceLine" id="cb7-6" title="6"></a>
-<a class="sourceLine" id="cb7-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb7-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> related.movements,</a>
 <a class="sourceLine" id="cb7-8" title="8">                      <span class="dt">premises =</span> selectedFARMS[,premises.attributs],</a>
 <a class="sourceLine" id="cb7-9" title="9">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Repeat the operation excluding slaughterhouses and boar stations</p>
@@ -378,21 +378,21 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb8-4" title="4">related.movements &lt;-<span class="st"> </span>listMovements[<span class="kw">which</span>(listMovements<span class="op">$</span>from <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID <span class="op">&amp;</span></a>
 <a class="sourceLine" id="cb8-5" title="5"><span class="st">                                           </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
 <a class="sourceLine" id="cb8-6" title="6"></a>
-<a class="sourceLine" id="cb8-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb8-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> related.movements,</a>
 <a class="sourceLine" id="cb8-8" title="8">                      <span class="dt">premises =</span> selectedFARMS,</a>
 <a class="sourceLine" id="cb8-9" title="9">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="generate-subnetworks-based-on-edge-attribute-such-as-various-time-windows-or-type-of-transport" class="section level2">
 <h2>Generate subnetworks based on edge attribute (such as various time windows or type of transport)</h2>
-<p>Use splitByEdges term of the ‘generate.network’ function. ‘splitByEdges’ attribute should refer to a qualitative variable in movements data.frame. Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.</p>
+<p>Use splitByEdges term of the ‘generate_network’ function. ‘splitByEdges’ attribute should refer to a qualitative variable in movements data.frame. Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">selectedFARMS &lt;-<span class="st"> </span>listPremises[<span class="kw">which</span>(listPremises<span class="op">$</span>type <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;FA&quot;</span>, <span class="st">&quot;FPW&quot;</span>, <span class="st">&quot;FF&quot;</span>, <span class="st">&quot;PW&quot;</span>, <span class="st">&quot;PWF&quot;</span>, <span class="st">&quot;FI&quot;</span>, <span class="st">&quot;MU&quot;</span>, <span class="st">&quot;NU&quot;</span>)),</a>
 <a class="sourceLine" id="cb9-2" title="2">                              premises.attributs]</a>
 <a class="sourceLine" id="cb9-3" title="3"></a>
 <a class="sourceLine" id="cb9-4" title="4">related.movements &lt;-<span class="st"> </span>listMovements[<span class="kw">which</span>(listMovements<span class="op">$</span>from <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID <span class="op">&amp;</span></a>
 <a class="sourceLine" id="cb9-5" title="5"><span class="st">                                               </span>listMovements<span class="op">$</span>to <span class="op">%in%</span><span class="st"> </span>selectedFARMS<span class="op">$</span>siteID ),]</a>
 <a class="sourceLine" id="cb9-6" title="6"></a>
-<a class="sourceLine" id="cb9-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb9-7" title="7">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> related.movements,</a>
 <a class="sourceLine" id="cb9-8" title="8">                      <span class="dt">premises =</span> selectedFARMS,</a>
 <a class="sourceLine" id="cb9-9" title="9">                      <span class="dt">splitByEdges =</span> <span class="kw">c</span>(<span class="st">&quot;MType&quot;</span>, <span class="st">&quot;year&quot;</span>),</a>
 <a class="sourceLine" id="cb9-10" title="10">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a>
@@ -406,9 +406,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="generate-subnetworks-based-on-vertex-attribute-type-of-farms" class="section level2">
 <h2>Generate subnetworks based on vertex attribute (type of farms)</h2>
-<p>Use splitByVertex term of the ‘generate.network’ function. ‘splitByVertex’ attribute should refer to a qualitative variable in premises data.frame. Note that, the general network with all Premises can be include by adding a NA object in the splitByVertex vector. Note that, splitByEdges and splitByVertex can be used jointly and networks will be produced for all combinations of movement subsets and premise subsets.</p>
+<p>Use splitByVertex term of the ‘generate_network’ function. ‘splitByVertex’ attribute should refer to a qualitative variable in premises data.frame. Note that, the general network with all Premises can be include by adding a NA object in the splitByVertex vector. Note that, splitByEdges and splitByVertex can be used jointly and networks will be produced for all combinations of movement subsets and premise subsets.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"></a>
-<a class="sourceLine" id="cb10-2" title="2">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb10-2" title="2">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> related.movements,</a>
 <a class="sourceLine" id="cb10-3" title="3">                      <span class="dt">premises =</span> selectedFARMS,</a>
 <a class="sourceLine" id="cb10-4" title="4">                      <span class="dt">splitByVertex =</span> <span class="st">&quot;type&quot;</span>,</a>
 <a class="sourceLine" id="cb10-5" title="5">                      <span class="dt">save.network =</span> <span class="ot">FALSE</span>)</a>
@@ -419,7 +419,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb10-10" title="10"><span class="co">#&gt; [5] &quot;allMov.for.type.MUPremises&quot;  &quot;allMov.for.type.NUPremises&quot; </span></a>
 <a class="sourceLine" id="cb10-11" title="11"><span class="co">#&gt; [7] &quot;allMov.for.type.PWPremises&quot;  &quot;allMov.for.type.PWFPremises&quot;</span></a>
 <a class="sourceLine" id="cb10-12" title="12"></a>
-<a class="sourceLine" id="cb10-13" title="13">G &lt;-<span class="st"> </span><span class="kw">generate.network</span>(<span class="dt">movements =</span> related.movements,</a>
+<a class="sourceLine" id="cb10-13" title="13">G &lt;-<span class="st"> </span><span class="kw">generate_network</span>(<span class="dt">movements =</span> related.movements,</a>
 <a class="sourceLine" id="cb10-14" title="14">                      <span class="dt">premises =</span> selectedFARMS,</a>
 <a class="sourceLine" id="cb10-15" title="15">                      <span class="dt">splitByEdges =</span> <span class="kw">c</span>(<span class="ot">NA</span>, <span class="st">&quot;semester&quot;</span>),</a>
 <a class="sourceLine" id="cb10-16" title="16">                      <span class="dt">splitByVertex =</span> <span class="st">&quot;freerange&quot;</span>,</a>
@@ -448,12 +448,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-7" title="7">                        <span class="dt">premises.type.lab =</span> <span class="st">&quot;type&quot;</span>)</a>
 <a class="sourceLine" id="cb11-8" title="8"></a>
 <a class="sourceLine" id="cb11-9" title="9">p</a></code></pre></div>
-<p>If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map.network function. Use the map.network function to map the network.</p>
+<p>If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map_network function. Use the map_network function to map the network.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">igraph<span class="op">::</span><span class="kw">get.vertex.attribute</span>(G[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span><span class="st"> </span>names</a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] &quot;name&quot;      &quot;farmGroup&quot; &quot;type&quot;      &quot;freerange&quot; &quot;BRS&quot;       &quot;lon&quot;      </span></a>
 <a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [7] &quot;lat&quot;</span></a>
 <a class="sourceLine" id="cb12-4" title="4"></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="kw">map.network</span>(</a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw">map_network</span>(</a>
 <a class="sourceLine" id="cb12-6" title="6">  <span class="dt">network =</span> G[[<span class="dv">1</span>]],</a>
 <a class="sourceLine" id="cb12-7" title="7">  <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;FR&quot;</span>),</a>
 <a class="sourceLine" id="cb12-8" title="8">  <span class="dt">premisescolours =</span> <span class="st">&quot;type&quot;</span>,</a>
@@ -471,9 +471,9 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb13-2" title="2"><span class="co">#&gt; Loading required package: Imap</span></a>
 <a class="sourceLine" id="cb13-3" title="3"><span class="co"># or in km</span></a>
 <a class="sourceLine" id="cb13-4" title="4">distMatrix &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="kw">GeoDistanceInMetresMatrix</span>(selectedFARMS[,<span class="kw">c</span>(<span class="st">&quot;siteID&quot;</span>,<span class="st">&quot;lon&quot;</span>,<span class="st">&quot;lat&quot;</span>)]) <span class="op">/</span><span class="st"> </span><span class="dv">1000</span>,<span class="dv">1</span>)</a></code></pre></div>
-<p>network.centralities function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix. Use <code>do.call(rbind, lapply(G, network.centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
+<p>network_centralities function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix. Use <code>do.call(rbind, lapply(G, network_centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co">#  without the distance</span></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="kw">network.centralities</span>(G[[<span class="dv">1</span>]])</a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">network_centralities</span>(G[[<span class="dv">1</span>]])</a>
 <a class="sourceLine" id="cb14-3" title="3"><span class="co">#&gt; Warning in closeness(g): At centrality.c:2784 :closeness centrality is not well-</span></a>
 <a class="sourceLine" id="cb14-4" title="4"><span class="co">#&gt; defined for disconnected graphs</span></a>
 <a class="sourceLine" id="cb14-5" title="5"><span class="co">#&gt;                    vcount            count.isolates                    ecount </span></a>
@@ -492,7 +492,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb14-18" title="18"><span class="co">#&gt;              2.871546e+00              3.482000e+01</span></a>
 <a class="sourceLine" id="cb14-19" title="19"></a>
 <a class="sourceLine" id="cb14-20" title="20"><span class="co">#  or with the distance</span></a>
-<a class="sourceLine" id="cb14-21" title="21"><span class="kw">network.centralities</span>(<span class="dt">network =</span> G[[<span class="dv">1</span>]], <span class="dt">include.distance =</span> <span class="ot">TRUE</span>, <span class="dt">distance.matrix =</span> distMatrix)</a>
+<a class="sourceLine" id="cb14-21" title="21"><span class="kw">network_centralities</span>(<span class="dt">network =</span> G[[<span class="dv">1</span>]], <span class="dt">include.distance =</span> <span class="ot">TRUE</span>, <span class="dt">distance.matrix =</span> distMatrix)</a>
 <a class="sourceLine" id="cb14-22" title="22"><span class="co">#&gt; Warning in closeness(g): At centrality.c:2784 :closeness centrality is not well-</span></a>
 <a class="sourceLine" id="cb14-23" title="23"><span class="co">#&gt; defined for disconnected graphs</span></a>
 <a class="sourceLine" id="cb14-24" title="24"><span class="co">#&gt;                    vcount            count.isolates                    ecount </span></a>

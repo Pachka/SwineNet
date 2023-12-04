@@ -207,7 +207,7 @@ div.csl-indent {
 <div id="build-general-network" class="section level1">
 <h1>Build general network</h1>
 <p>Produce igraph graph using the movements and sites dataset to define vertex attributes (site id has to be the first column). Arguments ‘past.save’ and ‘prefixe’ are requested only if save.network is TRUE.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements[,<span class="fu">c</span>(<span class="st">&quot;from&quot;</span>,<span class="st">&quot;to&quot;</span>)],</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> movements[,<span class="fu">c</span>(<span class="st">&quot;from&quot;</span>,<span class="st">&quot;to&quot;</span>)],</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> sites,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>Limit further analysis to mainland?</p>
@@ -222,7 +222,7 @@ div.csl-indent {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> related.movements,</span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>, <span class="at">prefixe =</span> <span class="st">&quot;full.industry.net&quot;</span>)</span></code></pre></div>
 <p>Repeat the operation excluding slaughterhouses and boar stations</p>
@@ -232,7 +232,7 @@ div.csl-indent {
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> related.movements,</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>, <span class="at">prefixe =</span> <span class="st">&quot;epidPurposes.industry.net&quot;</span>)</span></code></pre></div>
 </div>
@@ -244,7 +244,7 @@ div.csl-indent {
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> related.movements,</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(&quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -263,7 +263,7 @@ div.csl-indent {
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>related.movements <span class="ot">&lt;-</span> listMovements[<span class="fu">which</span>(listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> related.movements,</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -278,7 +278,7 @@ div.csl-indent {
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                               listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> related.movements,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> related.movements,</span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -296,7 +296,7 @@ div.csl-indent {
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> movements,</span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -311,7 +311,7 @@ div.csl-indent {
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> movements,</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -326,7 +326,7 @@ div.csl-indent {
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>from <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID <span class="sc">&amp;</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                                       listMovements<span class="sc">$</span>to <span class="sc">%in%</span> selectedFARMS<span class="sc">$</span>siteID ),]</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate.network</span>(<span class="at">movements =</span> movements,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>G <span class="ot">&lt;-</span> <span class="fu">generate_network</span>(<span class="at">movements =</span> movements,</span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">premises =</span> selectedFARMS,</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                 <span class="co">#periods = c(FALSE, &quot;year&quot;, &quot;semester&quot;, &quot;month&quot;),</span></span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">save.network =</span> <span class="cn">FALSE</span>, <span class="at">path.save =</span><span class="st">&quot;networks&quot;</span>,</span>
@@ -335,8 +335,8 @@ div.csl-indent {
 </div>
 <div id="map-network" class="section level2">
 <h2>Map network</h2>
-<p>Use the map.network function to map the network.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map.network</span>(</span>
+<p>Use the map_network function to map the network.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map_network</span>(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">network =</span> G[[<span class="dv">1</span>]],</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">country =</span> <span class="fu">c</span>(<span class="st">&quot;FR&quot;</span>),</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;network map&quot;</span>,</span>
@@ -351,8 +351,8 @@ div.csl-indent {
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># final required format</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(distMatrix)</span></code></pre></div>
-<p>Use the network.centralities function to calculate the basic centralities of a network. Use <code>do.call(rbind, lapply(G, network.centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">network.centralities</span>(G[[<span class="dv">1</span>]])</span></code></pre></div>
+<p>Use the network_centralities function to calculate the basic centralities of a network. Use <code>do.call(rbind, lapply(G, network_centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">network_centralities</span>(G[[<span class="dv">1</span>]])</span></code></pre></div>
 </div>
 </div>
 <div id="exponential-random-graph-model" class="section level1">
