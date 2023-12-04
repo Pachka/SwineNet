@@ -16,7 +16,11 @@ data(listMovements)
 premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat", "mainland")
 
 ## -----------------------------------------------------------------------------
+<<<<<<< HEAD
 G <- get_network(movements = listMovements[,c("from","to")],
+=======
+G <- generate_network(movements = listMovements[,c("from","to")],
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = listPremises[,premises.attributs],
                  save.network = FALSE,
                  path.save ="networks", prefixe = "full.net")
@@ -33,7 +37,11 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  save.network = FALSE, path.save ="networks", prefixe = "full.industry.net")
 
@@ -44,7 +52,11 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  save.network = FALSE, path.save ="networks", prefixe = "epidPurposes.industry.net")
 
@@ -55,7 +67,11 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c("year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -68,7 +84,11 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("MU", "NU","BS")),
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -82,7 +102,11 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -96,7 +120,11 @@ movements <- listMovements[which(listMovements$MType == "piglets" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = movements,
+=======
+G <- generate_network(movements = movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -110,7 +138,11 @@ movements <- listMovements[which(listMovements$MType == "growingPigs" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = movements,
+=======
+G <- generate_network(movements = movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -124,7 +156,11 @@ movements <- listMovements[which(listMovements$MType == "rpSows" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = movements,
+=======
+G <- generate_network(movements = movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                  premises = selectedFARMS,
                  periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -147,7 +183,11 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 
 ## -----------------------------------------------------------------------------
+<<<<<<< HEAD
 centralities_network(G[[1]])
+=======
+network_centralities(G[[1]])
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 
 ## -----------------------------------------------------------------------------
 exp.design <- expand.grid(network = names(G[2:3]), nCov = 2:3)

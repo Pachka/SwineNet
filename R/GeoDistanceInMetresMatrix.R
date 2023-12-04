@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # #' Add time variables FIX ME Imap is not available anymore
+=======
+# #' Add time variables FIX ME outdated package imap
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 # #'
 # #' @description FIX ME - by Peter Rosenmai on 30 Jan 2014 https://eurekastatistics.com/calculating-a-distance-matrix-for-geographic-points-using-r/
 # #' @param df FIX ME

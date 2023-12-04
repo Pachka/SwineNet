@@ -2,9 +2,15 @@
 
 export(analyseStepwise)
 export(capture_log1)
+<<<<<<< HEAD
 export(centralities_network)
 export(get_network)
 export(map_network)
+=======
+export(generate_network)
+export(map_network)
+export(network_centralities)
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 export(selectedERGM)
 export(stepwise4ERGM)
 export(timewindows)
@@ -15,8 +21,6 @@ import(ggplot2)
 importFrom(RColorBrewer,brewer.pal)
 importFrom(broom,tidy)
 importFrom(data.table,":=")
-importFrom(data.table,is.data.table)
-importFrom(data.table,setDT)
 importFrom(ggplotify,as.ggplot)
 importFrom(igraph,V)
 importFrom(igraph,as_edgelist)

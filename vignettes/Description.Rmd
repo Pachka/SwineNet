@@ -44,7 +44,11 @@ listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
 Produce igraph graph using the movements data.frame  (both first columns should respectivelly be named "from" and "to" and should be consistent with the premises ids) and the premises data.frame (site id has to be the first column). Arguments 'path.save' and 'prefixe' are requested only if save.network is TRUE. By default the duplicated edges will be kept and loops will be removed, use arguments: remove.duplicated.edges and remove.loop.edges to modify.
 
 ```{r }
+<<<<<<< HEAD
 G <- get_network(movements = listMovements,
+=======
+G <- generate_network(movements = listMovements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = listPremises[,premises.attributs],
                       save.network = FALSE,
                       remove.duplicated.edges = F,
@@ -69,7 +73,11 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS[,premises.attributs],
                       save.network = FALSE)
 ```
@@ -83,14 +91,22 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                            listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       save.network = FALSE)
 ```
 
 ## Generate subnetworks based on edge attribute (such as various time windows or type of transport)
 
+<<<<<<< HEAD
 Use splitByEdges term of the 'get_network' function. 'splitByEdges' attribute should refer to a qualitative variable in movements data.frame.
+=======
+Use splitByEdges term of the 'generate_network' function. 'splitByEdges' attribute should refer to a qualitative variable in movements data.frame.
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.
 
 ```{r }
@@ -100,7 +116,11 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByEdges = c("MType", "year"),
                       save.network = FALSE)
@@ -109,20 +129,32 @@ G %>% names
 ```
 ## Generate subnetworks based on vertex attribute (type of farms)
 
+<<<<<<< HEAD
 Use splitByVertex term of the 'get_network' function. 'splitByVertex' attribute should refer to a qualitative variable in premises data.frame.
+=======
+Use splitByVertex term of the 'generate_network' function. 'splitByVertex' attribute should refer to a qualitative variable in premises data.frame.
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 Note that, the general network with all Premises can be include by adding a NA object in the splitByVertex vector.
 Note that, splitByEdges and splitByVertex can be used jointly and networks will be produced for all combinations of movement subsets and premise subsets.
 
 ```{r }
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByVertex = "type",
                       save.network = FALSE)
 
 G %>% names
 
+<<<<<<< HEAD
 G <- get_network(movements = related.movements,
+=======
+G <- generate_network(movements = related.movements,
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByEdges = c(NA, "semester"),
                       splitByVertex = "freerange",
@@ -172,6 +204,7 @@ distMatrix <- GeoDistanceInMetresMatrix(selectedFARMS[,c("siteID","lon","lat")])
 distMatrix <- round(GeoDistanceInMetresMatrix(selectedFARMS[,c("siteID","lon","lat")]) / 1000,1)
 ```
 
+<<<<<<< HEAD
 centralities_network function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix.
 Use ```do.call(rbind, lapply(G, centralities_network))``` to generate centralities data.frame of centralities for multiple networks.
 
@@ -181,6 +214,17 @@ centralities_network(G[[1]])
 
 #  or with the distance
 centralities_network(network = G[[1]], include.distance = TRUE, distance.matrix = distMatrix)
+=======
+network_centralities function can be use to calculate a predefine basic set of centralities of the network, including or not teh distance matrix.
+Use ```do.call(rbind, lapply(G, network_centralities))``` to generate centralities data.frame of centralities for multiple networks.
+
+```{r}
+#  without the distance
+network_centralities(G[[1]])
+
+#  or with the distance
+network_centralities(network = G[[1]], include.distance = TRUE, distance.matrix = distMatrix)
+>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 ```
 ```
 
