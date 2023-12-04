@@ -1,0 +1,26 @@
+{
+    "id": "32ADE17F",
+    "path": "D:/Pachka_tmp/1-Modeling/SwineNet/R/generate.network.R",
+    "project_path": "R/generate.network.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1701685927305.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "28,16",
+        "scrollLine": "12"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1701685959,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1701685959,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -14,7 +14,7 @@
 #' @examples
 #' data(listPremises)
 #' data(listMovements)
-#' generate.network(movements = listMovements, premises = listPremises, save.network = FALSE)
+#' get_network(movements = listMovements, premises = listPremises, save.network = FALSE)
 #'
 #'
 #' @importFrom igraph graph_from_data_frame
@@ -26,7 +26,7 @@
 #'
 #' @export
 
-generate.network <- function(movements,
+get_network <- function(movements,
                              sites,
                              splitByEdges = NA,
                              splitByVertex = NA,

@@ -22,7 +22,7 @@ premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon
 listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
 
 ## -----------------------------------------------------------------------------
-G <- generate.network(movements = listMovements[,c("from","to")],
+G <- get_network(movements = listMovements[,c("from","to")],
                       premises = listPremises[,premises.attributs],
                       save.network = FALSE,
                       remove.duplicated.edges = F,
@@ -39,7 +39,7 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
-G <- generate.network(movements = related.movements[,c("from","to")],
+G <- get_network(movements = related.movements[,c("from","to")],
                       premises = selectedFARMS[,premises.attributs],
                       save.network = FALSE)
 
@@ -50,7 +50,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                            listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                       premises = selectedFARMS,
                       save.network = FALSE)
 
@@ -61,7 +61,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByEdges = c("MType", "year"),
                       save.network = FALSE)
@@ -70,14 +70,14 @@ G %>% names
 
 ## -----------------------------------------------------------------------------
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByVertex = "type",
                       save.network = FALSE)
 
 G %>% names
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                       premises = selectedFARMS,
                       splitByEdges = c(NA, "semester"),
                       splitByVertex = "freerange",

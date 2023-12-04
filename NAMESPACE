@@ -3,7 +3,7 @@
 export(GeoDistanceInMetresMatrix)
 export(analyseStepwise)
 export(capture_log1)
-export(generate.network)
+export(get_network)
 export(map.network)
 export(network.centralities)
 export(selectedERGM)

@@ -54,7 +54,7 @@ Produce igraph graph using the movements and sites dataset to define vertex attr
 ```{r}
 sites_attributes <- c("siteID", "company",  "type", "outdoor", "BRS", "lon", "lat")
 
-G <- generate.network(movements = movements[,c("from","to")] %>% as.data.frame,
+G <- get_network(movements = movements[,c("from","to")] %>% as.data.frame,
                  sites = sites[,..sites_attributes] %>% as.data.frame,
                  save.network = FALSE)
 ```
@@ -76,7 +76,7 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                  premises = selectedFARMS,
                  save.network = FALSE, path.save ="networks", prefixe = "full.industry.net")
 ```
@@ -90,7 +90,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                  premises = selectedFARMS,
                  save.network = FALSE, path.save ="networks", prefixe = "epidPurposes.industry.net")
 ```
@@ -104,7 +104,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", 
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                  premises = selectedFARMS,
                  #periods = c("year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -123,7 +123,7 @@ selectedFARMS <- listPremises[which(listPremises$type %in% c("MU", "NU","BS")),
 related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                  premises = selectedFARMS,
                  #periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -139,7 +139,7 @@ related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$s
                                                listMovements$to %in% selectedFARMS$siteID ),]
 
 
-G <- generate.network(movements = related.movements,
+G <- get_network(movements = related.movements,
                  premises = selectedFARMS,
                  #periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -159,7 +159,7 @@ movements <- listMovements[which(listMovements$MType == "piglets" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = movements,
+G <- get_network(movements = movements,
                  premises = selectedFARMS,
                  #periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -176,7 +176,7 @@ movements <- listMovements[which(listMovements$MType == "growingPigs" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = movements,
+G <- get_network(movements = movements,
                  premises = selectedFARMS,
                  #periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
@@ -193,7 +193,7 @@ movements <- listMovements[which(listMovements$MType == "rpSows" &
                                        listMovements$from %in% selectedFARMS$siteID &
                                        listMovements$to %in% selectedFARMS$siteID ),]
 
-G <- generate.network(movements = movements,
+G <- get_network(movements = movements,
                  premises = selectedFARMS,
                  #periods = c(FALSE, "year", "semester", "month"),
                  save.network = FALSE, path.save ="networks",
