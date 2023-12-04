@@ -1,6 +1,6 @@
 Package: SwineNet
 Title: Swine network Analysis
-Version: 0.2.0
+Version: 0.1.0
 Authors@R: 
     c(person(given = "Pachka",
            family = "Hammami",
@@ -42,9 +42,9 @@ Imports:
     intergraph,
     ggplotify,
     plyr,
-    Imap,
     data.table
 Suggests:
+    Imap,
     snow,
     rgeos,
     foreach,
@@ -52,5 +52,5 @@ Suggests:
     knitr,
     rmarkdown
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 VignetteBuilder: knitr
