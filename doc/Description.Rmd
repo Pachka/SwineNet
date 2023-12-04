@@ -202,10 +202,10 @@ G <- get_network(movements = movements,
 ```
 
 ## Map network
-Use the map.network function to map the network.
+Use the map_network function to map the network.
 
 ```{r, eval=F}
-map.network(
+map_network(
   network = G[[1]],
   country = c("FR"),
   title = "network map",

@@ -147,12 +147,12 @@ p <- swineNetwork.representation(networktoplot = G[[1]],
 p
 ```
 
-If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map.network function.
-Use the map.network function to map the network.
+If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map_network function.
+Use the map_network function to map the network.
 ```{r}
 igraph::get.vertex.attribute(G[[1]]) %>% names
 
-map.network(
+map_network(
   network = G[[1]],
   country = c("FR"),
   premisescolours = "type",

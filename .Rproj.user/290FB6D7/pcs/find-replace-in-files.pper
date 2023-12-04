@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "generate.network",
+        "query": "map.network",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 57,
+        "resultsCount": 21,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

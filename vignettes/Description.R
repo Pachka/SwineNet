@@ -98,7 +98,7 @@ G %>% names
 ## ---- eval=F------------------------------------------------------------------
 #  igraph::get.vertex.attribute(G[[1]]) %>% names
 #  
-#  map.network(
+#  map_network(
 #    network = G[[1]],
 #    country = c("FR"),
 #    premisescolours = "type",

@@ -132,7 +132,7 @@ G <- get_network(movements = movements,
 
 
 ## ---- eval=F------------------------------------------------------------------
-#  map.network(
+#  map_network(
 #    network = G[[1]],
 #    country = c("FR"),
 #    title = "network map",

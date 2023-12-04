@@ -169,7 +169,7 @@ selectedERGM <- function(stepwise.summary,
   
   p <- lapply(as.list(seq(length(obsVSsim))), function(i){
     plot.title <- if(i == 1) "observed network" else paste("simulated network", i-1)
-    pp <- SwineNet::map.network(
+    pp <- SwineNet::map_network(
       network = obsVSsim[[i]],
       country = country.plot,
       path.rasters = "",

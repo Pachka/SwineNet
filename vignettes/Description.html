@@ -448,12 +448,12 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb11-7" title="7">                        <span class="dt">premises.type.lab =</span> <span class="st">&quot;type&quot;</span>)</a>
 <a class="sourceLine" id="cb11-8" title="8"></a>
 <a class="sourceLine" id="cb11-9" title="9">p</a></code></pre></div>
-<p>If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map.network function. Use the map.network function to map the network.</p>
+<p>If coordinates are included as lat and lon vertex attributes, networks can also be mapped using map_network function. Use the map_network function to map the network.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">igraph<span class="op">::</span><span class="kw">get.vertex.attribute</span>(G[[<span class="dv">1</span>]]) <span class="op">%&gt;%</span><span class="st"> </span>names</a>
 <a class="sourceLine" id="cb12-2" title="2"><span class="co">#&gt; [1] &quot;name&quot;      &quot;farmGroup&quot; &quot;type&quot;      &quot;freerange&quot; &quot;BRS&quot;       &quot;lon&quot;      </span></a>
 <a class="sourceLine" id="cb12-3" title="3"><span class="co">#&gt; [7] &quot;lat&quot;</span></a>
 <a class="sourceLine" id="cb12-4" title="4"></a>
-<a class="sourceLine" id="cb12-5" title="5"><span class="kw">map.network</span>(</a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw">map_network</span>(</a>
 <a class="sourceLine" id="cb12-6" title="6">  <span class="dt">network =</span> G[[<span class="dv">1</span>]],</a>
 <a class="sourceLine" id="cb12-7" title="7">  <span class="dt">country =</span> <span class="kw">c</span>(<span class="st">&quot;FR&quot;</span>),</a>
 <a class="sourceLine" id="cb12-8" title="8">  <span class="dt">premisescolours =</span> <span class="st">&quot;type&quot;</span>,</a>
