@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "stepwise.selection.forERGM",
+        "query": "swineNetwork.representation",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 13,
+        "resultsCount": 11,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

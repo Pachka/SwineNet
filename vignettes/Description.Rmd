@@ -133,13 +133,13 @@ G %>% names
 
 
 # Network representations
-Networks can be represented based on its attributes with swineNetwork.representation function.
+Networks can be represented based on its attributes with vis_network function.
 
 ```{r eval=FALSE}
 igraph::get.edge.attribute(G[[1]]) %>% names
 igraph::get.vertex.attribute(G[[1]]) %>% names
 
-p <- swineNetwork.representation(networktoplot = G[[1]],
+p <- vis_network(networktoplot = G[[1]],
                         title = "network representation",
                         movements.type.lab = "MType",
                         premises.type.lab = "type")

@@ -89,7 +89,7 @@ G %>% names
 #  igraph::get.edge.attribute(G[[1]]) %>% names
 #  igraph::get.vertex.attribute(G[[1]]) %>% names
 #  
-#  swineNetwork.representation(network = G[[1]],
+#  vis_network(network = G[[1]],
 #                          title = "network representation",
 #                          movements.type.lab = "MType",
 #                          premises.type.lab = "type")
