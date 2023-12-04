@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "map.network",
+        "query": "network.centralities",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 21,
+        "resultsCount": 24,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

@@ -243,11 +243,11 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 ```
 
-Use the network.centralities function to calculate the basic centralities of a network.
-Use ```do.call(rbind, lapply(G, network.centralities))``` to generate centralities data.frame of centralities for multiple networks.
+Use the centralities_network function to calculate the basic centralities of a network.
+Use ```do.call(rbind, lapply(G, centralities_network))``` to generate centralities data.frame of centralities for multiple networks.
 
 ```{r eval = FALSE}
-network.centralities(G[[1]])
+centralities_network(G[[1]])
 ```
 
 # Exponential random graph model

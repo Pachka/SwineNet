@@ -351,8 +351,8 @@ div.csl-indent {
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># final required format</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(distMatrix)</span></code></pre></div>
-<p>Use the network.centralities function to calculate the basic centralities of a network. Use <code>do.call(rbind, lapply(G, network.centralities))</code> to generate centralities data.frame of centralities for multiple networks.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">network.centralities</span>(G[[<span class="dv">1</span>]])</span></code></pre></div>
+<p>Use the centralities_network function to calculate the basic centralities of a network. Use <code>do.call(rbind, lapply(G, centralities_network))</code> to generate centralities data.frame of centralities for multiple networks.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">centralities_network</span>(G[[<span class="dv">1</span>]])</span></code></pre></div>
 </div>
 </div>
 <div id="exponential-random-graph-model" class="section level1">

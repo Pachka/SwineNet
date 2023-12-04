@@ -147,7 +147,7 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 
 ## -----------------------------------------------------------------------------
-network.centralities(G[[1]])
+centralities_network(G[[1]])
 
 ## -----------------------------------------------------------------------------
 exp.design <- expand.grid(network = names(G[2:3]), nCov = 2:3)

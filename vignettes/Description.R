@@ -115,7 +115,7 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 
 ## -----------------------------------------------------------------------------
-network.centralities(G[[1]], distMatrix = F)
+centralities_network(G[[1]], distMatrix = F)
 
 ## -----------------------------------------------------------------------------
 g <- intergraph::asNetwork(G[[1]])
