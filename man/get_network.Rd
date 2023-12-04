@@ -6,7 +6,7 @@
 \usage{
 get_network(
   movements,
-  premises,
+  sites,
   splitByEdges = NA,
   splitByVertex = NA,
   save.network = TRUE,
@@ -19,8 +19,6 @@ get_network(
 \arguments{
 \item{movements}{A dataframe listing the movements defined by at least an origin ('from' column) and a destination ('to' column).}
 
-\item{premises}{A dataframe listing the origin and destination sites defined by at least the site identifier (1st column) and the nodal attributes.}
-
 \item{splitByEdges}{FIX ME - A vector or characters including one or several time periods among year, semester and month. FALSE is leading to the production of the complete network.}
 
 \item{splitByVertex}{FIX ME - A vector or characters including one or several time periods among year, semester and month. FALSE is leading to the production of the complete network.}
@@ -30,6 +28,8 @@ get_network(
 \item{path.save}{String defining the location file to save the networks.}
 
 \item{prefixe}{String defining the prefixe if output files.}
+
+\item{premises}{A dataframe listing the origin and destination sites defined by at least the site identifier (1st column) and the nodal attributes.}
 }
 \value{
 return a list of networks

@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "swineNetwork.representation",
+        "query": "GeoDistanceInMetresMatrix ",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 11,
+        "resultsCount": 3,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true
