@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "network.centralities",
+        "query": "stepwise.selection.forERGM",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 24,
+        "resultsCount": 13,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

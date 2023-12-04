@@ -622,7 +622,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb16-8" title="8"><span class="co">########### Forward stepwise procedure</span></a>
 <a class="sourceLine" id="cb16-9" title="9"><span class="co">########### </span></a>
 <a class="sourceLine" id="cb16-10" title="10"></a>
-<a class="sourceLine" id="cb16-11" title="11"><span class="kw">stepwise.selection.forERGM</span>(base.formula, <span class="co"># string</span></a>
+<a class="sourceLine" id="cb16-11" title="11"><span class="kw">stepwise4ERGM</span>(base.formula, <span class="co"># string</span></a>
 <a class="sourceLine" id="cb16-12" title="12">                           <span class="dt">nbworkers =</span>  <span class="dv">10</span>, <span class="co"># integer</span></a>
 <a class="sourceLine" id="cb16-13" title="13">                           <span class="dt">elements =</span> <span class="kw">append</span>(elements,structural.elements), <span class="co"># list</span></a>
 <a class="sourceLine" id="cb16-14" title="14">                           <span class="dt">network.name =</span> <span class="st">&quot;mynetwork&quot;</span>, <span class="co"># string</span></a>
@@ -646,7 +646,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <a class="sourceLine" id="cb16-32" title="32">base.formula &lt;-<span class="st"> </span>stepwise.summary[[stepwise.summary <span class="op">%&gt;%</span><span class="st"> </span>length]]<span class="op">$</span>formula <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">substr</span>(., <span class="kw">gregexpr</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">g ~&quot;</span>, .)[[<span class="dv">1</span>]][<span class="dv">1</span>] , <span class="kw">nchar</span>(.)<span class="op">-</span><span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb16-33" title="33"></a>
 <a class="sourceLine" id="cb16-34" title="34"></a>
-<a class="sourceLine" id="cb16-35" title="35"><span class="kw">stepwise.selection.forERGM</span>(base.formula,</a>
+<a class="sourceLine" id="cb16-35" title="35"><span class="kw">stepwise4ERGM</span>(base.formula,</a>
 <a class="sourceLine" id="cb16-36" title="36">                           <span class="dt">nbworkers =</span> <span class="dv">10</span>, <span class="co">#integer</span></a>
 <a class="sourceLine" id="cb16-37" title="37">                           <span class="dt">network.name =</span> <span class="st">&quot;mynetwork&quot;</span>, <span class="co"># string</span></a>
 <a class="sourceLine" id="cb16-38" title="38">                           <span class="dt">results.path =</span> <span class="kw">getwd</span>(),</a>

@@ -281,7 +281,7 @@ base.formula <- "g ~ edges"
 ########### Forward stepwise procedure
 ########### 
 
-stepwise.selection.forERGM(base.formula, # string
+stepwise4ERGM(base.formula, # string
                            nbworkers =  10, # integer
                            elements = append(elements,structural.elements), # list
                            network.name = "mynetwork", # string
@@ -307,7 +307,7 @@ load(file = getwd() %>%
 base.formula <- stepwise.summary[[stepwise.summary %>% length]]$formula %>%  substr(., gregexpr("\\g ~", .)[[1]][1] , nchar(.)-1)
 baseline.aic <- stepwise.summary %>% .[[length(.)]] %>% .$min.aic
 
-stepwise.selection.forERGM(base.formula,
+stepwise4ERGM(base.formula,
                            nbworkers = 10, #integer
                            network.name = "mynetwork", # string
                            results.path = getwd(),
@@ -323,7 +323,7 @@ stepwise.selection.forERGM(base.formula,
 ######## Bidirectional stepwise procedure
 ######## 
 
-stepwise.selection.forERGM(base.formula,
+stepwise4ERGM(base.formula,
                            nbworkers =  10, # integer
                            elements = elements, # list
                            network.name = "mynetwork", # string

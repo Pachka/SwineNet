@@ -194,7 +194,7 @@ structural.elements %>% unlist %>% length
 #  ########### Forward stepwise procedure
 #  ###########
 #  
-#  stepwise.selection.forERGM(base.formula,
+#  stepwise4ERGM(base.formula,
 #                             nbworkers =  10, # integer
 #                             elements = append(elements,structural.elements) %>% str, # list
 #                             network.name = "mynetwork", # string
@@ -219,7 +219,7 @@ structural.elements %>% unlist %>% length
 #  base.formula <- stepwise.summary[[stepwise.summary %>% length]]$formula %>%  substr(., gregexpr("\\g ~", .)[[1]][1] , nchar(.)-1)
 #  
 #  
-#  stepwise.selection.forERGM(base.formula,
+#  stepwise4ERGM(base.formula,
 #                             nbworkers = 10, #integer
 #                             network.name = "mynetwork", # string
 #                             results.path = getwd(),
