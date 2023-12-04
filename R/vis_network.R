@@ -6,7 +6,7 @@
 #' @param edge.attr string. Default is NULL
 #' @param movements.type.lab string. Default is "animType"
 #' @param premises.type.lab string. Default is "type"
-#' 
+#'
 #' @return return a plot
 #' @examples FIX ME
 #'
@@ -24,11 +24,7 @@
 #'
 #' @export
 
-<<<<<<<< HEAD:R/vis_network.R
 vis_network <- function(networktoplot = g,
-========
-vis_swineNet <- function(networktoplot = g,
->>>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb:R/vis_swineNet.R
                         title = NA,
                         movements.type.lab = "animType",
                         premises.type.lab = "type") {
@@ -40,11 +36,11 @@ vis_swineNet <- function(networktoplot = g,
       stop("networktoplot class must be igraph. Consider using intergraph to transform.")}
 
     g <- networktoplot
-    
+
   ### Remove loops and duplicates ###
     if(is.null(igraph::get.vertex.attribute(g)$name))
   V(g)$name <- igraph::get.vertex.attribute(g)$vertex.name
-    
+
   fromto <- igraph::as_edgelist(g, names = T) %>% data.frame
   colnames(fromto)[1:2] <- c("from","to")
 
@@ -62,15 +58,15 @@ vis_swineNet <- function(networktoplot = g,
   fromto <- fromto[,c("movements.type", "fromtype", "totype")]
   fromto <- plyr::ddply(fromto, plyr::`.`(fromtype,totype,movements.type), nrow)
   farmsnb <- plyr::ddply(farms,plyr::`.`(type),nrow)
-  
-  
+
+
     net <- network::network(fromto, matrix.type = "edgelist",loops=T, multiple = T, directed=TRUE)
     network::set.edge.attribute(net, "movements.type", fromto$movements.type)
     network::set.edge.attribute(net, "movements.nb", fromto$V1)
     network::set.vertex.attribute(net, "premise.nb", farmsnb[match(network::network.vertex.names(net),farmsnb$type), "V1"])
-    
+
     pal <- RColorBrewer::brewer.pal(6,"Paired")
-    
+
     do_work <- function(net){
       ggplotify::as.ggplot(function(){
         plot(net,
@@ -83,13 +79,13 @@ vis_swineNet <- function(networktoplot = g,
         legend("topleft",bty = "n", lty=1, cex=0.8,
                legend=levels(factor(network::get.edge.attribute(net,"movements.type"))),col=pal,border=NA)})
     }
-    
-    p <- do_work(net)  
-      
+
+    p <- do_work(net)
+
       if(!is.na(title))
         p <-  p + ggtitle(title) + theme(
           plot.title = element_text(color="black", size=14, face="bold.italic", hjust = 0.5)
         )
-    
+
     return(p)
 }

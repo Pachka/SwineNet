@@ -18,6 +18,6 @@ FIX ME
 FIX ME
 }
 \examples{
-data(listMovements)
-timewindows(listMovements, formatDate = "\%Y-\%m-\%d") \%>\% head
+data(movements)
+timewindows(movements, formatDate = "\%Y-\%m-\%d") \%>\% head
 }

@@ -66,18 +66,18 @@ G <- generate_network(movements = movements[,c("from","to")] %>% as.data.frame,
  Limit further analysis to mainland?
 
 ```{r eval = FALSE}
-listPremises <- listPremises[which(listPremises$mainland==TRUE),]
+sites <- sites[which(sites$mainland==TRUE),]
 premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat")
 ```
 
 ### Subset of farms: select active premises of the national industry in the mainland
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 
 <<<<<<< HEAD
@@ -92,11 +92,11 @@ G <- generate_network(movements = related.movements,
 Repeat the operation excluding slaughterhouses and boar stations
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = related.movements,
@@ -110,11 +110,11 @@ G <- generate_network(movements = related.movements,
 ## Time divisions
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = related.movements,
@@ -133,11 +133,11 @@ G <- generate_network(movements = related.movements,
 
 ### Breeding
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("MU", "NU","BS")),
+selectedFARMS <- sites[which(sites$type %in% c("MU", "NU","BS")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = related.movements,
@@ -152,11 +152,11 @@ G <- generate_network(movements = related.movements,
 
 ###  Production
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 
 <<<<<<< HEAD
@@ -176,12 +176,12 @@ G <- generate_network(movements = related.movements,
 ###  Piglets
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "MU", "NU")),
              premises.attributs]
 
-movements <- listMovements[which(listMovements$MType == "piglets" &
-                                       listMovements$from %in% selectedFARMS$siteID &
-                                       listMovements$to %in% selectedFARMS$siteID ),]
+movements <- movements[which(movements$MType == "piglets" &
+                                       movements$from %in% selectedFARMS$siteID &
+                                       movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = movements,
@@ -197,12 +197,12 @@ G <- generate_network(movements = movements,
 ###  Growing pigs
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-movements <- listMovements[which(listMovements$MType == "growingPigs" &
-                                       listMovements$from %in% selectedFARMS$siteID &
-                                       listMovements$to %in% selectedFARMS$siteID ),]
+movements <- movements[which(movements$MType == "growingPigs" &
+                                       movements$from %in% selectedFARMS$siteID &
+                                       movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = movements,
@@ -218,12 +218,12 @@ G <- generate_network(movements = movements,
 ###  Reproductive sows
 
 ```{r eval = FALSE}
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "MU", "NU")),
                               premises.attributs]
 
-movements <- listMovements[which(listMovements$MType == "rpSows" &
-                                       listMovements$from %in% selectedFARMS$siteID &
-                                       listMovements$to %in% selectedFARMS$siteID ),]
+movements <- movements[which(movements$MType == "rpSows" &
+                                       movements$from %in% selectedFARMS$siteID &
+                                       movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = movements,

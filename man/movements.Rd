@@ -7,8 +7,8 @@
 \format{
 A data frame with 2000 rows and 6 variables:
 \describe{
-\item{\code{from}}{double origin site identification}
-\item{\code{to}}{double destination site identification}
+\item{\code{from}}{double origin premise identification}
+\item{\code{to}}{double destination premise identification}
 \item{\code{MType}}{double type of movement (loading: 'C' or unloading: 'D')}
 \item{\code{year}}{double year of the event}
 \item{\code{semester}}{double semester of the event}

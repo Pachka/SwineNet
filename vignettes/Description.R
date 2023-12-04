@@ -12,72 +12,56 @@ if(length(new.packages)) install.packages(new.packages)
 lapply(list.of.packages, require, character.only = TRUE)
 
 ## -----------------------------------------------------------------------------
-data(listPremises)
-data(listMovements)
+data(sites)
+data(movements)
 
 ## -----------------------------------------------------------------------------
 premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat", "mainland")
 
 ## -----------------------------------------------------------------------------
-listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
+movements <- timewindows(movements, formatDate = "%Y-%m-%d")
 
 ## -----------------------------------------------------------------------------
-<<<<<<< HEAD
-G <- get_network(movements = listMovements[,c("from","to")],
-=======
-G <- generate_network(movements = listMovements[,c("from","to")],
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
-                      premises = listPremises[,premises.attributs],
+G <- get_network(movements = movements[,c("from","to")],
+                      premises = sites[,premises.attributs],
                       save.network = FALSE,
                       remove.duplicated.edges = F,
                       remove.loop.edges = T)
 
 ## -----------------------------------------------------------------------------
-listPremises <- listPremises[which(listPremises$mainland==TRUE),]
+sites <- sites[which(sites$mainland==TRUE),]
 premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat")
 
 ## -----------------------------------------------------------------------------
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),premises.attributs]
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 
-<<<<<<< HEAD
 G <- get_network(movements = related.movements[,c("from","to")],
-=======
-G <- generate_network(movements = related.movements[,c("from","to")],
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS[,premises.attributs],
                       save.network = FALSE)
 
 ## -----------------------------------------------------------------------------
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                           listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                           movements$to %in% selectedFARMS$siteID ),]
 
-<<<<<<< HEAD
 G <- get_network(movements = related.movements,
-=======
-G <- generate_network(movements = related.movements,
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       save.network = FALSE)
 
 ## -----------------------------------------------------------------------------
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
-<<<<<<< HEAD
 G <- get_network(movements = related.movements,
-=======
-G <- generate_network(movements = related.movements,
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByEdges = c("MType", "year"),
                       save.network = FALSE)
@@ -86,22 +70,14 @@ G %>% names
 
 ## -----------------------------------------------------------------------------
 
-<<<<<<< HEAD
 G <- get_network(movements = related.movements,
-=======
-G <- generate_network(movements = related.movements,
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByVertex = "type",
                       save.network = FALSE)
 
 G %>% names
 
-<<<<<<< HEAD
 G <- get_network(movements = related.movements,
-=======
-G <- generate_network(movements = related.movements,
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
                       premises = selectedFARMS,
                       splitByEdges = c(NA, "semester"),
                       splitByVertex = "freerange",
@@ -112,16 +88,16 @@ G %>% names
 ## ---- eval=F------------------------------------------------------------------
 #  igraph::get.edge.attribute(G[[1]]) %>% names
 #  igraph::get.vertex.attribute(G[[1]]) %>% names
-#  
+#
 #  vis_network(network = G[[1]],
 #                          title = "network representation",
 #                          movements.type.lab = "MType",
 #                          premises.type.lab = "type")
-#  
+#
 
 ## ---- eval=F------------------------------------------------------------------
 #  igraph::get.vertex.attribute(G[[1]]) %>% names
-#  
+#
 #  map_network(
 #    network = G[[1]],
 #    country = c("FR"),
@@ -129,7 +105,7 @@ G %>% names
 #    title = "network map",
 #    topfeature = "point"
 #  )
-#  
+#
 
 ## -----------------------------------------------------------------------------
 # Save coordinates in the right format to feed The Geographic Distance Matrix Generator
@@ -139,18 +115,14 @@ write.table(selectedFARMS[,c("siteID","lon","lat")], file = "GPS.txt", sep="\t",
 data(distMatrix)
 
 ## -----------------------------------------------------------------------------
-<<<<<<< HEAD
 centralities_network(G[[1]], distMatrix = F)
-=======
-network_centralities(G[[1]], distMatrix = F)
->>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
 
 ## -----------------------------------------------------------------------------
 g <- intergraph::asNetwork(G[[1]])
 
-########### 
+###########
 ########### Nodal and edges attributes
-########### 
+###########
 library(network)
 
 network::list.vertex.attributes(g)
@@ -187,9 +159,9 @@ elements <- c(
 
 elements %>% unlist %>% length
 
-########### 
+###########
 ########### Structural characteristics
-########### 
+###########
 
 library(sna)
 ostar.levels <- degree(g,gmode = "out") %>% unique
@@ -215,13 +187,13 @@ structural.elements %>% unlist %>% length
 #  ###########
 #  ########### Run the stepwise selection process
 #  ###########
-#  
+#
 #  base.formula <- "g ~ edges"
-#  
+#
 #  ###########
 #  ########### Forward stepwise procedure
 #  ###########
-#  
+#
 #  stepwise4ERGM(base.formula,
 #                             nbworkers =  10, # integer
 #                             elements = append(elements,structural.elements) %>% str, # list
@@ -233,20 +205,20 @@ structural.elements %>% unlist %>% length
 #                             # stepwise.summary = stepwise.summary,
 #                             verbose =T
 #  )
-#  
+#
 #  ###########
 #  ########### Backward stepwise procedure
 #  ###########
-#  
-#  
+#
+#
 #  load(file = getwd() %>%
 #    list.files(., full.names = TRUE) %>%
 #    .[grep(paste0("stepwise.summary_mynetwork"),.)]%>%
 #    extract(which.max(file.mtime(.))))
-#  
+#
 #  base.formula <- stepwise.summary[[stepwise.summary %>% length]]$formula %>%  substr(., gregexpr("\\g ~", .)[[1]][1] , nchar(.)-1)
-#  
-#  
+#
+#
 #  stepwise4ERGM(base.formula,
 #                             nbworkers = 10, #integer
 #                             network.name = "mynetwork", # string
@@ -258,14 +230,14 @@ structural.elements %>% unlist %>% length
 #                             stepwise.summary = stepwise.summary,
 #                             verbose = T
 #  )
-#  
+#
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  # read the most recent output
 #  load(file = list.files(., full.names = TRUE) %>%
 #    .[grep(paste0("stepwise.summary_mynetwork"),.)]%>%
 #    extract(which.max(file.mtime(.))))
-#  
+#
 #  selected.terms <- analyseStepwise(stepwise.summary)
 
 ## ----eval = FALSE-------------------------------------------------------------

@@ -1,6 +1,6 @@
 {
     "dialog-state": {
-        "query": "GeoDistanceInMetresMatrix ",
+        "query": "listMovements",
         "path": "",
         "regex": false,
         "caseSensitive": false,
@@ -9,7 +9,7 @@
         "useGitGrep": true,
         "excludeGitIgnore": true,
         "excludeFilePatterns": [],
-        "resultsCount": 3,
+        "resultsCount": 138,
         "errorCount": 0,
         "replaceErrors": "",
         "projectRelative": true

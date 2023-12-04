@@ -1,6 +1,6 @@
 # This goes in R/data.R
 
-#' @title listPremises
+#' @title sites
 #' @description Fictive premises dataset
 #' @format A data frame with 200 rows and 10 variables:
 #' \describe{
@@ -14,9 +14,9 @@
 #'   \item{\code{nbPW}}{double Maximal number of growing pigs in the farm} 
 #'   \item{\code{nbFat}}{double Maximal number of barrows in the farm} 
 #'}
-"listPremises"
+"sites"
 
-#' @title listMovements
+#' @title movements
 #' @description Fictive movements dataset 
 #' @format A data frame with 2000 rows and 6 variables:
 #' \describe{
@@ -27,12 +27,12 @@
 #'   \item{\code{semester}}{double semester of the event} 
 #'   \item{\code{semester}}{double month of the  event} 
 #'}
-"listMovements"
+"movements"
 
 #  FIX ME create relevant movements according to premises type and animal type 
-# from <- sample(listPremises$siteID, 2000,  replace = T)
-# to   <- sample(listPremises$siteID, 2000,  replace = T)
+# from <- sample(sites$siteID, 2000,  replace = T)
+# to   <- sample(sites$siteID, 2000,  replace = T)
 # date <- sample(seq(as.Date('2019/01/01'), as.Date('2020/01/01'), by="day"), 2000,  replace = T)
 # MType <- sample(c("PG","GP","RP","BR"), 2000,  replace = T) # piglets, growing pigs, reproducive sows, barrows
-# listMovements <- data.frame(from=from,ro=to,date=date,Mtype=Mtype)
-# save(listMovements, file = "SwineNet/data/listMovements.rda")
+# movements <- data.frame(from=from,ro=to,date=date,Mtype=Mtype)
+# save(movements, file = "SwineNet/data/movements.rda")

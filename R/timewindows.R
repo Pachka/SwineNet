@@ -5,8 +5,8 @@
 #' @param formatDate FIX ME
 #' @return FIX ME
 #' @examples
-#' data(listMovements)
-#' timewindows(listMovements, formatDate = "%Y-%m-%d") %>% head
+#' data(movements)
+#' timewindows(movements, formatDate = "%Y-%m-%d") %>% head
 #' @importFrom data.table ":="
 #' 
 #' @export

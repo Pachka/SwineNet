@@ -26,8 +26,8 @@ lapply(list.of.packages, require, character.only = TRUE)
 Load example datasets
 
 ```{r}
-data(listPremises)
-data(listMovements)
+data(sites)
+data(movements)
 ```
 Define a list of attributes for premises to keep in the network
 
@@ -36,7 +36,7 @@ premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon
 ```
 Add year, month and semester to the movement data.frame using timewindows function.
 ```{r}
-listMovements <- timewindows(listMovements, formatDate = "%Y-%m-%d")
+movements <- timewindows(movements, formatDate = "%Y-%m-%d")
 ```
 
 # Build network
@@ -45,11 +45,11 @@ Produce igraph graph using the movements data.frame  (both first columns should 
 
 ```{r }
 <<<<<<< HEAD
-G <- get_network(movements = listMovements,
+G <- get_network(movements = movements,
 =======
-G <- generate_network(movements = listMovements,
+G <- generate_network(movements = movements,
 >>>>>>> 42f1e3243b0b136dd72c76edb43e40e46dfee4bb
-                      premises = listPremises[,premises.attributs],
+                      premises = sites[,premises.attributs],
                       save.network = FALSE,
                       remove.duplicated.edges = F,
                       remove.loop.edges = T)
@@ -60,17 +60,17 @@ G <- generate_network(movements = listMovements,
 To limit the analysis to a subset of premises of edges. Update the premises and/or movements data.frames.
 For example: select premises on the mainland
 ```{r }
-listPremises <- listPremises[which(listPremises$mainland==TRUE),]
+sites <- sites[which(sites$mainland==TRUE),]
 premises.attributs <- c("siteID", "farmGroup",  "type", "freerange", "BRS", "lon", "lat")
 ```
 
 ### Subset of farms: select active premises of the national industry in the mainland
 
 ```{r }
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),premises.attributs]
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU","BS","SL")),premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 
 <<<<<<< HEAD
@@ -85,11 +85,11 @@ G <- generate_network(movements = related.movements,
 Repeat the operation excluding slaughterhouses and boar stations
 
 ```{r }
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                           listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                           movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = related.movements,
@@ -110,11 +110,11 @@ Use splitByEdges term of the 'generate_network' function. 'splitByEdges' attribu
 Note that, the general network with all movements can be include by adding a NA object in the splitByEdges vector.
 
 ```{r }
-selectedFARMS <- listPremises[which(listPremises$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
+selectedFARMS <- sites[which(sites$type %in% c("FA", "FPW", "FF", "PW", "PWF", "FI", "MU", "NU")),
                               premises.attributs]
 
-related.movements <- listMovements[which(listMovements$from %in% selectedFARMS$siteID &
-                                               listMovements$to %in% selectedFARMS$siteID ),]
+related.movements <- movements[which(movements$from %in% selectedFARMS$siteID &
+                                               movements$to %in% selectedFARMS$siteID ),]
 
 <<<<<<< HEAD
 G <- get_network(movements = related.movements,

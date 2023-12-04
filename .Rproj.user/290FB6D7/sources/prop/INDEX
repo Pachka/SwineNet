@@ -1,4 +1,5 @@
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FDESCRIPTION="436CB104"
+D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FNAMESPACE="22D888B7"
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2FGeoDistanceInMetresMatrix.R="97EDE2E5"
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2FanalyseStepwise.R="285E80DA"
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2Fcapture_log1.R="18DF2621"
@@ -14,3 +15,6 @@ D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2Fstepwise.selection.forERGM.R="C5
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2Fstepwise4ERGM.R="387E86FB"
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2FswineNetwork.representation.R="7FE0FFA0"
 D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2FR%2Fvis_network.R="3325AF8D"
+D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2Fdoc%2FDescription.R="F0D5331D"
+D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2Fman%2Fcentralities_network.Rd="62256270"
+D%3A%2FPachka_tmp%2F1-Modeling%2FSwineNet%2Fvignettes%2FDescription.R="2DCA5F4A"
